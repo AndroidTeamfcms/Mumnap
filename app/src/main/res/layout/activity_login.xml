@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="fcms.crptrls.i9930.croptrailsfcms.Login.LoginActivity">
+
+    <!-- Login progress -->
+
+
+
+    <android.support.v7.widget.CardView
+        android:elevation="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:elevation="@dimen/_5sdp"
+        android:background="@drawable/shadow_rect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/icon_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/cloud_icon"
+                    android:elevation="@dimen/_4sdp"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    android:src="@drawable/cloud"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CropTrails"
+                    android:textColor="@color/faded_text"
+                    android:textSize="@dimen/_20ssp"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_below="@id/cloud_icon"
+                    />
+            </RelativeLayout>
+
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/ti_email"
+            android:layout_below="@id/icon_image"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_70sdp"
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+            >
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textColor="@color/light_text_color"
+                android:hint="Email"
+                android:inputType="textEmailAddress|textAutoComplete"
+                android:padding="@dimen/_10sdp"
+                android:drawablePadding="@dimen/_13sdp"
+                android:textColorHint="@color/faded_text"
+                android:layout_below="@id/icon_image"/>
+        </android.support.design.widget.TextInputLayout>
+
+<!--
+        android:drawableLeft="@drawable/ic_mail_outline_light_text_18dp"
+-->
+
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/ti_password"
+            android:layout_below="@id/ti_email"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="Password"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@android:color/white"
+            android:drawableLeft="@drawable/ic_lock_outline_light_text_18dp"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+            >
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textColor="@color/light_text_color"
+                android:inputType="textPassword"
+                android:padding="@dimen/_10sdp"
+                android:drawablePadding="@dimen/_13sdp"
+                android:drawableLeft="@drawable/ic_lock_outline_light_text_18dp"
+                android:textColorHint="@color/faded_text"
+                android:layout_below="@id/icon_image"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <TextView
+            android:background="@drawable/gradient_button"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_below="@id/ti_password"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/light_text_color"
+            android:id="@+id/map_id"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_15ssp"
+            android:padding="@dimen/_9sdp"
+            android:text="LOG IN"/>
+
+        <TextView
+            android:layout_below="@id/map_id"
+            android:layout_centerHorizontal="true"
+            android:text="Forgot Password ?"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/faded_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
