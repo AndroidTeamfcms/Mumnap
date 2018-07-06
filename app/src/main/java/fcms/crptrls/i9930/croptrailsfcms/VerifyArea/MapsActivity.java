@@ -1,11 +1,17 @@
 package fcms.crptrls.i9930.croptrailsfcms.VerifyArea;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -17,17 +23,26 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,13 +61,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import fcms.crptrls.i9930.croptrailsfcms.R;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener
     {
 
     private GoogleMap mMap;
     SupportMapFragment mapFrag;
     LocationRequest mLocationRequest;
-    GoogleApiClient mGoogleApiClient;
+        LocationManager locationManager;
+        GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     Context context;
@@ -64,13 +80,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView tvarea;
     Boolean onclick=false;
     Button butt_clear;
+        String mprovider;
+        Location location;
+
         private final Map<String, MarkerOptions> mMarkers = new ConcurrentHashMap<String, MarkerOptions>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.new_theme));
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         context = this;
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        mprovider = locationManager.getBestProvider(criteria, false);
+        //gpslocation=(TextView)findViewById(R.id.gps_location);
+        if (mprovider != null && !mprovider.equals("")) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            location = locationManager.getLastKnownLocation(mprovider);
+            locationManager.requestLocationUpdates(mprovider, 2000, 1, this);
+
+        }
+
+
 
         tvarea=(TextView)findViewById(R.id.area_tv);
         submit=(Button)findViewById(R.id.submit_butt);
@@ -822,4 +862,113 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             });
         }
 
+
+        @Override
+        public void onLocationChanged(Location location) {
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+            //gps_status=true;
+           // mGoogleApiClient=null;
+           // Toast.makeText(context, "Gps Enabled", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            //Toast.makeText(context, "Gps Disabled", Toast.LENGTH_SHORT).show();
+
+            enableGPS();
+        }
+
+        private void enableGPS() {
+            /*if (mGoogleApiClient == null) {*/
+
+                //Toast.makeText(context, "Coming in enable gps", Toast.LENGTH_SHORT).show();
+                mGoogleApiClient = new GoogleApiClient.Builder(this)
+                        .addApi(LocationServices.API).addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(MapsActivity.this).build();
+                mGoogleApiClient.connect();
+                LocationRequest locationRequest = LocationRequest.create();
+                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                locationRequest.setInterval(10 * 1000);
+                locationRequest.setFastestInterval(2 * 1000);
+
+                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                        .addLocationRequest(locationRequest);
+
+                // **************************
+                builder.setAlwaysShow(true); // this is the key ingredient
+                // **************************
+
+                PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi
+                        .checkLocationSettings(mGoogleApiClient, builder.build());
+                result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+                    @Override
+                    public void onResult(LocationSettingsResult result) {
+                        final Status status = result.getStatus();
+                        final LocationSettingsStates state = result
+                                .getLocationSettingsStates();
+                        switch (status.getStatusCode()) {
+                            case LocationSettingsStatusCodes.SUCCESS:
+                                // All location settings are satisfied. The client can
+                                // initialize location
+                               // Toast.makeText(MapsActivity.this, "Gps Enabled", Toast.LENGTH_SHORT).show();
+
+                                // requests here.
+                                break;
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                // Location settings are not satisfied. But could be
+                                // fixed by showing the user
+                                // a dialog.
+
+                                try {
+                                    // Show the dialog by calling
+                                    // startResolutionForResult(),
+                                    // and check the result in onActivityResult().
+                                    //Toast.makeText(MapsActivity.this, "Requesting for gps", Toast.LENGTH_SHORT).show();
+
+                                    status.startResolutionForResult(MapsActivity.this, 1000);
+                                } catch (IntentSender.SendIntentException e) {
+                                   // Toast.makeText(MapsActivity.this, "Requesting for gps in catch", Toast.LENGTH_SHORT).show();
+
+                                    // Ignore the error.
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                // Location settings are not satisfied. However, we have
+                                // no way to fix the
+                                // settings so we won't show the dialog.
+                                //Toast.makeText(MapsActivity.this, "Settings change unavailable", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                });
+            //}
+        }
+
+
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (requestCode == 1000) {
+                if (resultCode == Activity.RESULT_OK) {
+                    String result = data.getStringExtra("result");
+                }
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    //Write your code if there's no result
+                    enableGPS();
+                }
+            }
+        }
+
+
+
     }
+
+

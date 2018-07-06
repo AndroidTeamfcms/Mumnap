@@ -1,6 +1,9 @@
 package fcms.crptrls.i9930.croptrailsfcms.Landing;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,15 +27,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import org.w3c.dom.ProcessingInstruction;
 
 import java.lang.reflect.Field;
 
+import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseActivity;
+import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsActivity;
+import fcms.crptrls.i9930.croptrailsfcms.FirstVisit.SowingActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.FarmFragment;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.FarmerFragment;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.ProfileFragment;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.SevenDaysReport.SevenDaysVisitActivity;
+import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.TestActivity;
+import fcms.crptrls.i9930.croptrailsfcms.VerifyArea.MapsActivity;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FarmFragment.OnFragmentInteractionListener,FarmerFragment.OnFragmentInteractionListener
@@ -41,6 +51,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
 
     BottomNavigationView navigation;
+    Context context;
 
 
 
@@ -92,6 +103,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+        context=this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -168,14 +180,77 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
+            Intent intent=new Intent(context,SevenDaysVisitActivity.class);
+            ActivityOptions options = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                context.startActivity(intent, options.toBundle());
+            }else{
+                startActivity(intent);
+            }
+
         } else if (id == R.id.nav_slideshow) {
 
+            Intent intent=new Intent(context,MapsActivity.class);
+            ActivityOptions options = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                context.startActivity(intent, options.toBundle());
+            }else{
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_manage) {
+            Intent intent=new Intent(context,SowingActivity.class);
+            ActivityOptions options = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                context.startActivity(intent, options.toBundle());
+            }else{
+                startActivity(intent);
+            }
+        }
+        else if (id == R.id.nav_expense) {
+            Intent intent=new Intent(context,ExpenseActivity.class);
+            ActivityOptions options = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                context.startActivity(intent, options.toBundle());
+            }else{
+                startActivity(intent);
+            }
+        }
 
-        } else if (id == R.id.nav_share) {
-
+        else if (id == R.id.nav_share) {
+            Intent intent=new Intent(context,TestActivity.class);
+            ActivityOptions options = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                context.startActivity(intent, options.toBundle());
+            }else{
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_send) {
-
+            Intent intent=new Intent(context,FarmDetailsActivity
+                    .class);
+            ActivityOptions options = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                context.startActivity(intent, options.toBundle());
+            }else{
+                startActivity(intent);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

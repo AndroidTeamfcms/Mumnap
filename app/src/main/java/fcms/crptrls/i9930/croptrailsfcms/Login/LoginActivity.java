@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                // response.message();
+/*
                 Log.e("TAG",response.body().toString()+"        "+response.message()+"      "+response.code());
                 ModelRecieveData modelRecieveData=response.body();
 
@@ -113,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                     activity[i]=result.get(i).getActivity();
                     Log.e("TAG",activity[i]);
                 }
+*/
 
 
             }

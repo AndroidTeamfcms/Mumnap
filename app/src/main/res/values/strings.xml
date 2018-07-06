@@ -26,4 +26,52 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="country_prompt">Choose a country</string>
+    <string-array name="country_arrays">
+        <item>India</item>
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+    </string-array>
+
+    <string name="state_prompt">Choose a state</string>
+    <string-array name="state_arrays">
+        <item>MP</item>
+        <item>UP</item>
+        <item>Delhi</item>
+    </string-array>
+
+    <string name="tehsil_prompt">Choose a tehsil</string>
+    <string-array name="tehsil_arrays">
+        <item>Indore</item>
+        <item>Ujjain</item>
+        <item>Dewas</item>
+    </string-array>
+
+    <string name="city_prompt">Choose a City</string>
+    <string-array name="city_arrays">
+        <item>Indore</item>
+        <item>Ujjain</item>
+        <item>Dewas</item>
+    </string-array>
+
+    <string name="district_prompt">Choose a Destrict</string>
+    <string-array name="district_arrays">
+        <item>Indore</item>
+        <item>Ujjain</item>
+        <item>Dewas</item>
+    </string-array>
+
+
+    <string name="date_prompt">Choose a Date</string>
+    <string-array name="date_arrays">
+        <item>2018/06/8</item>
+        <item>2018/06/9</item>
+    </string-array>
 </resources>
