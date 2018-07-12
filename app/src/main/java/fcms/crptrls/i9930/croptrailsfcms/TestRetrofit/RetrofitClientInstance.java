@@ -7,12 +7,13 @@ public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
     private static final String BASE_URL = "https://spade.farm/app/index.php/farmCalendar/";
-    private static final String NEW_BASE_URL="http://192.168.0.4/fcmsci/index.php/";
+    private static final String NEW_BASE_URL="http://192.168.0.15/fcmsci/index.php/";
+    private static final String BASE_URL_SERVER_URL = "http://13.232.96.172/fcmsci/index.php/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl(NEW_BASE_URL)
+                    .baseUrl(BASE_URL_SERVER_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

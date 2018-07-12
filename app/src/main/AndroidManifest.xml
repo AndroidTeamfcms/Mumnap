@@ -20,6 +20,7 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".Application.YourApplication"
@@ -60,23 +61,32 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".VerifyArea.MapsActivity"
+            android:name=".Map.VerifyArea.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".Map.ShowArea.ShowAreaOnMapActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".Map.CheckArea.CheckAreaMapActivity"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".Landing.LandingActivity"
             android:label="@string/title_activity_landing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SevenDaysReport.SevenDaysVisitActivity"
+            android:name=".TestFolder.SevenDaysReport.SevenDaysVisitActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FirstVisit.SowingActivity"
+            android:name=".TestFolder.FirstVisit.SowingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExpenseData.ExpenseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TestRetrofit.TestActivity" />
-        <activity android:name=".Farm_Farmer_Details.FarmDetailsActivity"
+        <activity
+            android:name=".Farm_Farmer_Details.FarmDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

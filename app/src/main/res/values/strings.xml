@@ -18,6 +18,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="back_press">Press Back again to Exit.</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -74,4 +75,91 @@
         <item>2018/06/8</item>
         <item>2018/06/9</item>
     </string-array>
+
+    <string-array name="irrigation_type_array">
+        <item>Surface irrigation</item>
+        <item>Localized irrigation</item>
+        <item>Drip irrigation</item>
+        <item>Sprinkler irrigation</item>
+        <item>Center pivot irrigation</item>
+        <item>Lateral move irrigation</item>
+        <item>Sub-irrigation</item>
+        <item>Manual irrigation</item>
+    </string-array>
+
+
+    <string-array name="previous_crops_array">
+        <item>Soybean</item>
+        <item>Maize</item>
+        <item>Sunflower</item>
+        <item>Mustard</item>
+        <item>Wheat</item>
+        <item>Barley</item>
+    </string-array>
+
+
+    <string-array name="irrigation_source_array">
+        <item>Canals</item>
+        <item>Wells</item>
+        <item>Tube-wells</item>
+        <item>Tanks</item>
+    </string-array>
+
+    <string-array name="soil_type_array">
+        <item>Clay Soil</item>
+        <item>Loam Soil</item>
+        <item>Sandy Soil</item>
+        <item>Silty Soil</item>
+        <item>Peaty Soil</item>
+    </string-array>
+    <string name="moisture_prompt">Choose Moisture Level</string>
+    <string-array name="moisture_level">
+        <item>Moist</item>
+        <item>Not Moist</item>
+        <item>Less Moist</item>
+        <item>High Moist</item>
+    </string-array>
+
+    <string name="grade_prompt">Select Grade</string>
+    <string-array name="grade">
+        <item>A Grade</item>
+        <item>B Grade</item>
+        <item>C Grade</item>
+        <item>D Grade</item>
+    </string-array>
+
+    <string name="ipm_prompt">Select Material</string>
+    <string-array name="ipm">
+        <item>Carazen</item>
+        <item>Amistar</item>
+    </string-array>
+
+    <string name="unit_prompt">Units</string>
+    <string-array name="unit">
+        <item>kg</item>
+        <item>litre</item>
+        <item>quintol</item>
+        <item>ton</item>
+    </string-array>
+
+
+    <string name="iwm_prompt">Select Material</string>
+    <string-array name="iwm">
+        <item>Atrizen</item>
+        <item>Laudis</item>
+        <item>Roundup</item>
+    </string-array>
+
+    <string name="inm_prompt">Select Material</string>
+    <string-array name="inm">
+        <item>DAP</item>
+        <item>MOP</item>
+        <item>Urea</item>
+        <item>20-20-0-13</item>
+    </string-array>
+
+    <string name="path_below">M7.41,7.84L12,12.42l4.59,-4.58L18,9.25l-6,6 -6,-6z</string>
+
+
+
 </resources>

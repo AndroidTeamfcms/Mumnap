@@ -31,6 +31,11 @@ public  class YourApplication extends Application implements Application.Activit
     Calendar rightNow;
     int currentHour,currentminitue;
     String lang="";
+    public static final String TAG = YourApplication.class
+            .getSimpleName();
+
+
+    private static YourApplication mInstance;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onCreate() {

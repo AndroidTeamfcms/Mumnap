@@ -127,7 +127,7 @@ public class SplashActivity extends AppCompatActivity {
     private void stop() {
         isFinish = true;
         if (t == 0) {
-            if (SharedPreferencesMethod.getBoolean(context, "Login")) {
+            if (SharedPreferencesMethod.getBoolean(context, SharedPreferencesMethod.SVLOGIN)) {
                 Intent intent=new Intent(context,LandingActivity.class);
                 ActivityOptions options =
                         null;

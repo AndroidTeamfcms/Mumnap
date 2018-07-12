@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fcms.crptrls.i9930.croptrailsfcms.FirstVisit.SowingActivity">
+    tools:context=".TestFolder.FirstVisit.SowingActivity">
 
     <include
         android:id="@+id/toolbar_actionbar"

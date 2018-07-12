@@ -1,4 +1,4 @@
-package fcms.crptrls.i9930.croptrailsfcms.FirstVisit;
+package fcms.crptrls.i9930.croptrailsfcms.TestFolder.FirstVisit;
 
 import android.app.DatePickerDialog;
 import android.os.Build;
@@ -16,7 +16,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import fcms.crptrls.i9930.croptrailsfcms.R;
-import fcms.crptrls.i9930.croptrailsfcms.SevenDaysReport.SevenDaysVisitActivity;
 
 public class SowingActivity extends AppCompatActivity {
 

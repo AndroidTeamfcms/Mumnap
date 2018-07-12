@@ -1,6 +1,7 @@
 package fcms.crptrls.i9930.croptrailsfcms.ExpenseData;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,8 +28,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -46,6 +50,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseAdapter.ExpenseAdapter;
@@ -53,6 +58,7 @@ import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.Datum;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.ExpenseData;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.ExpenseRegistorResponseData;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.ExpenseSendData;
+import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.ApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.ModelRecieveData;
@@ -82,10 +88,14 @@ public class ExpenseActivity extends AppCompatActivity {
     List<Datum> result;
     Datum datum;
     Button democheck;
-    EditText et_exp_date,et_exp_narration,et_exp_amount;
+    EditText et_exp_narration,et_exp_amount;
     String str_et_amount;
     String str_et_date;
     String str_et_narration;
+    TextView et_exp_date;
+    Calendar expense_date = Calendar.getInstance();
+    ProgressBar progressBar;
+
 
 
 
@@ -108,22 +118,63 @@ public class ExpenseActivity extends AppCompatActivity {
         expenseDataRecyclerView=(RecyclerView)findViewById(R.id.expence_recyclerview);
         democheck=(Button)findViewById(R.id.demoCheck);
         et_exp_amount=(EditText)findViewById(R.id.amount_et);
-        et_exp_date=(EditText)findViewById(R.id.date_et_exp);
+        et_exp_date=(TextView) findViewById(R.id.date_et_exp);
         et_exp_narration=(EditText)findViewById(R.id.comment_et);
+        progressBar=(ProgressBar)findViewById(R.id.progressBar_cyclic);
 
-        democheck.setOnClickListener(new View.OnClickListener() {
+
+
+        progressBar.setVisibility(View.VISIBLE);
+        fetchData();
+
+        final DatePickerDialog.OnDateSetListener datesowing = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                expense_date.set(Calendar.YEAR, year);
+                expense_date.set(Calendar.MONTH, monthOfYear);
+                expense_date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updatesowingDateLabel();
+            }
+        };
+
+        et_exp_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AsyncTaskRunner runner = new AsyncTaskRunner();
-                runner.execute();
+                new DatePickerDialog(ExpenseActivity.this, datesowing, expense_date
+                        .get(Calendar.YEAR), expense_date.get(Calendar.MONTH),
+                        expense_date.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-        fetchData();
         img_expense_recycler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
+            }
+        });
+
+        democheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                str_et_amount=et_exp_amount.getText().toString().trim();
+                str_et_date=et_exp_date.getText().toString().trim();
+                str_et_narration=et_exp_narration.getText().toString().trim();
+
+                if(str_et_amount.matches("")){
+                    et_exp_amount.setError("Amount can't be null");
+                }else if(str_et_narration.matches("")){
+                    et_exp_narration.setError("Comment can't be null");
+                }else if(str_et_date.matches("DD/MM/YYYY")){
+                    et_exp_date.setError("Please Choose Date");
+                }else if(pictureImagePath.matches("")){
+                    Toast.makeText(context, "Please Upload an image of expenditure", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    AsyncTaskRunner runner = new AsyncTaskRunner();
+                    runner.execute();
+                }
             }
         });
 
@@ -133,17 +184,26 @@ public class ExpenseActivity extends AppCompatActivity {
 
         ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
         ExpenseSendData expenseSendData=new ExpenseSendData();
-        expenseSendData.setComp_id("0");
+        expenseSendData.setComp_id("1");
         expenseSendData.setSv_id("1");
         Call<ExpenseData> expenseDataCall=apiService.getExpenseData(expenseSendData);
         expenseDataCall.enqueue(new Callback<ExpenseData>(){
 
             @Override
             public void onResponse(Call<ExpenseData> call, Response<ExpenseData> response) {
-                Log.e("TAG_DATA",response.body().toString()+"        "+response.message()+"      "+response.code());
-                ExpenseData expenseData=response.body();
-                //Datum datum=expenseData.getData();
-                result=expenseData.getData();
+
+                try {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    if (response != null) {
+                        //result=new ArrayList<>();
+                        Log.e("TAG_DATA", response.body().toString() + "        " + response.message() + "      " + response.code());
+                        ExpenseData expenseData = response.body();
+
+                        if(expenseData.getStatus()!=0) {
+                            //Datum datum=expenseData.getData();
+                            result = expenseData.getData();
+
+                            // Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show();
                /* String[] comment=new String[result.size()];
                 for(int i=0;i<result.size();i++){
                     comment[i]=result.get(i).getComment();
@@ -151,20 +211,32 @@ public class ExpenseActivity extends AppCompatActivity {
                 }
                 Log.e("Data",result.toString());
 */
-                expenseAdapter = new ExpenseAdapter(result, context);
-                expenseDataRecyclerView.setHasFixedSize(true);
-                expenseDataRecyclerView.setAdapter(expenseAdapter);
-                expenseAdapter.notifyDataSetChanged();
+                            expenseAdapter = new ExpenseAdapter(result, context);
+                            expenseDataRecyclerView.setHasFixedSize(true);
+                            expenseDataRecyclerView.setAdapter(expenseAdapter);
+                            expenseAdapter.notifyDataSetChanged();
 
-                linearLayoutManager= new LinearLayoutManager(context);
-                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                expenseDataRecyclerView.setLayoutManager(linearLayoutManager);
+                            linearLayoutManager = new LinearLayoutManager(context);
+                            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                            expenseDataRecyclerView.setLayoutManager(linearLayoutManager);
+                        }else{
+                            Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }catch (Exception e){
+                    progressBar.setVisibility(View.INVISIBLE);
+                    e.printStackTrace();
+                    result=new ArrayList<>();
+                    expenseAdapter = new ExpenseAdapter(result, context);
+                    expenseDataRecyclerView.setHasFixedSize(true);
+                    expenseDataRecyclerView.setAdapter(expenseAdapter);
+                }
 
             }
 
             @Override
             public void onFailure(Call<ExpenseData> call, Throwable t) {
-
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -229,6 +301,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
             JSONObject jsonObject=new JSONObject(bodyResponse.body().string());
             String data=jsonObject.getString("img_url");
+
             Log.e("TAG_NEW_RESPONSE",data );
 
 
@@ -267,6 +340,8 @@ public class ExpenseActivity extends AppCompatActivity {
                     scrollMyListViewToBottom();
                     //expenseAdapter.notifyItemInserted(result.size() - 1);
                     expenseAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.INVISIBLE);
+
                     /*etcomment.setText("");
                     progressDialog.dismiss();*/
                     // Stuff that updates the UI
@@ -286,6 +361,8 @@ public class ExpenseActivity extends AppCompatActivity {
         }
         catch (Exception e){
             e.printStackTrace();
+            progressBar.setVisibility(View.INVISIBLE);
+
         }
     }
 
@@ -503,11 +580,10 @@ public class ExpenseActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-             str_et_amount=et_exp_amount.getText().toString().trim();
-             str_et_date=et_exp_date.getText().toString().trim();
-             str_et_narration=et_exp_narration.getText().toString().trim();
 
-            register("0","1",str_et_amount,str_et_date,pictureImagePath,str_et_narration,"0");
+
+                 register("1", "1", str_et_amount, str_et_date, pictureImagePath, str_et_narration, "0");
+
         //public void register(String comp_id, String sv_id, String amount,String exp_date, String img_path,String comment, String category_id){
 
 
@@ -542,4 +618,10 @@ public class ExpenseActivity extends AppCompatActivity {
         expenseDataRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
+
+    private void updatesowingDateLabel() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        et_exp_date.setText(sdf.format(expense_date.getTime()));
+    }
 }

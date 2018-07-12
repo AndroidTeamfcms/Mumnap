@@ -27,7 +27,7 @@
                 android:layout_height="match_parent"
                 android:textSize="@dimen/_14ssp"
                 android:textColor="@android:color/background_light"
-                android:text="My Tittle"/>
+                android:text="My Title"/>
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

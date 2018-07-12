@@ -20,7 +20,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fcms.crptrls.i9930.croptrailsfcms.VerifyArea.MapsActivity" />
+    tools:context=".Map.VerifyArea.MapsActivity" />
 
 
     <TextView
@@ -45,13 +45,33 @@
         android:layout_marginLeft="3dp"
         android:textColor="@android:color/white"
         android:textSize="20sp"/>
-    <Button
-        android:id="@+id/submit_butt"
+
+    <LinearLayout
+        android:weightSum="1"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="Area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:id="@+id/submit_butt"
+            android:text="Area"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:id="@+id/next_butt"
+            android:text="Next"
+            android:layout_weight=".5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
 
     <Button
         android:layout_below="@id/toolbar_actionbar"
@@ -60,6 +80,16 @@
         android:layout_height="wrap_content"
         android:text="Clear"/>
 
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/progressBar_cyclic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 

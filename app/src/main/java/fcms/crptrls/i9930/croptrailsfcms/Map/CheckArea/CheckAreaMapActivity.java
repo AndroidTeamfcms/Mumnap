@@ -1,7 +1,8 @@
-package fcms.crptrls.i9930.croptrailsfcms.VerifyArea;
+package fcms.crptrls.i9930.croptrailsfcms.Map.CheckArea;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,13 +13,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -26,6 +28,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,9 +62,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
+import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
+import fcms.crptrls.i9930.croptrailsfcms.Map.VerifyArea.VerifyAreaModel.VerifySendData;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.StatusMsgModel.StatusMsgModel;
+import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener
+public class CheckAreaMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener
     {
 
     private GoogleMap mMap;
@@ -75,6 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     FusedLocationProviderClient mFusedLocationClient;
     Double[] latPoints;
     Double[] longPoints;
+    String[] lat,lng;
     int i=0;
     Button submit;
     TextView tvarea;
@@ -82,6 +94,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button butt_clear;
         String mprovider;
         Location location;
+        Button next_butt;
+        ProgressBar progressBar;
+        Boolean can_add=true;
 
         private final Map<String, MarkerOptions> mMarkers = new ConcurrentHashMap<String, MarkerOptions>();
 
@@ -94,9 +109,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.new_theme));
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_check_area);
         context = this;
 
+        progressBar=(ProgressBar)findViewById(R.id.progressBar_cyclic);
+        progressBar.setVisibility(View.VISIBLE);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         mprovider = locationManager.getBestProvider(criteria, false);
@@ -115,6 +132,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvarea=(TextView)findViewById(R.id.area_tv);
         submit=(Button)findViewById(R.id.submit_butt);
         butt_clear=(Button)findViewById(R.id.clear_butt);
+        next_butt=(Button)findViewById(R.id.next_butt);
+
+        next_butt.setEnabled(false);
 
 
         latPoints=new Double[14];
@@ -125,20 +145,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 if(i>2){
                     //onclick=true;
-                    submit();
-                   // submit.setEnabled(false);
+                    submit_area();
+                    next_butt.setEnabled(true);
+                    can_add=false;
+                    // submit.setEnabled(false);
                 }else{
                     Toast.makeText(context, "Please submit atleast 3 points", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        next_butt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                AsyncTaskRunner asyncTaskRunner=new AsyncTaskRunner();
+                asyncTaskRunner.execute();
+            }
+        });
         butt_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i>0) {
                     tvarea.setText("0");
                     remove("marker" + (i - 1));
+                    next_butt.setEnabled(false);
+                    can_add=true;
                     i--;
                 }
             }
@@ -195,13 +227,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        
 
 
 
 
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
@@ -257,7 +289,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                        //mMap.addMarker(marker);
                        Log.e("TOUCH Points", point.latitude + "    " + point.longitude);
 
-                       submit();
+                     //  submit_area();
 
 
                    }
@@ -272,10 +304,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
     }
 
-        private void submit() {
+        private void submit_area() {
             Polygon UCCpolygon;
 
-            if(i==3) {
+            if(i<3){
+                Toast.makeText(context, "Please submit atleast 3 points", Toast.LENGTH_SHORT).show();
+            }
+
+            else if(i==3) {
                 UCCpolygon = mMap.addPolygon(new PolygonOptions()
                         .add(new LatLng(latPoints[0], longPoints[0]),
                                 new LatLng(latPoints[1], longPoints[1]),
@@ -642,6 +678,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.i("AREA", "computeArea " + SphericalUtil.computeArea(latLngs));
                 tvarea.setText(String.valueOf(String.format("%.2f", SphericalUtil.computeArea(latLngs)*0.000247105)));
             }
+
+
             else{
                 Toast.makeText(context, "Point Limit exeeds", Toast.LENGTH_SHORT).show();
             }
@@ -674,6 +712,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     //move map camera
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         };
@@ -697,7 +736,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     //Prompt the user once explanation has been shown
-                                    ActivityCompat.requestPermissions(MapsActivity.this,
+                                    ActivityCompat.requestPermissions(CheckAreaMapActivity.this,
                                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                             MY_PERMISSIONS_REQUEST_LOCATION );
                                 }
@@ -829,20 +868,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         private void add(String name, final LatLng ll) {
 
 
-            if(i<14) {
-                final MarkerOptions marker = new MarkerOptions().position(ll).title(name);
-                mMarkers.put(name, marker);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMap.addMarker(marker);
-                        latPoints[i] = ll.latitude;
-                        longPoints[i] = ll.longitude;
-                        i++;
-                    }
-                });
+            if(can_add) {
+                if (i < 14) {
+                    final MarkerOptions marker = new MarkerOptions().position(ll).title(name);
+                    mMarkers.put(name, marker);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMap.addMarker(marker);
+                            latPoints[i] = ll.latitude;
+                            longPoints[i] = ll.longitude;
+                            i++;
+                        }
+                    });
+                } else {
+                    Toast.makeText(context, "Cant add More points", Toast.LENGTH_SHORT).show();
+                }
             }else{
-                Toast.makeText(context, "Cant add More points", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Please Clear Then Add More", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -893,7 +936,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //Toast.makeText(context, "Coming in enable gps", Toast.LENGTH_SHORT).show();
                 mGoogleApiClient = new GoogleApiClient.Builder(this)
                         .addApi(LocationServices.API).addConnectionCallbacks(this)
-                        .addOnConnectionFailedListener(MapsActivity.this).build();
+                        .addOnConnectionFailedListener(CheckAreaMapActivity.this).build();
                 mGoogleApiClient.connect();
                 LocationRequest locationRequest = LocationRequest.create();
                 locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -934,7 +977,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     // and check the result in onActivityResult().
                                     //Toast.makeText(MapsActivity.this, "Requesting for gps", Toast.LENGTH_SHORT).show();
 
-                                    status.startResolutionForResult(MapsActivity.this, 1000);
+                                    status.startResolutionForResult(CheckAreaMapActivity.this, 1000);
                                 } catch (IntentSender.SendIntentException e) {
                                    // Toast.makeText(MapsActivity.this, "Requesting for gps in catch", Toast.LENGTH_SHORT).show();
 
@@ -968,6 +1011,91 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
 
+        private class AsyncTaskRunner extends AsyncTask<String, Void, String> {
+            public AsyncTaskRunner() {
+                super();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                lat=new String[i];
+                lng=new String[i];
+
+               for(int j=0;j<i;j++){
+                   lat[j]=String.valueOf(latPoints[j]);
+                   lng[j]=String.valueOf(longPoints[j]);
+               }
+
+                ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
+                VerifySendData verifySendData=new VerifySendData();
+                verifySendData.setComp_id("0");
+                verifySendData.setFarm_id("2");
+                verifySendData.setArea(tvarea.getText().toString().trim());
+                verifySendData.setLat(lat);
+                verifySendData.setLng(lng);
+                Call<StatusMsgModel> statusMsgModelCall=apiService.getMsgStatusForVerifyFarm(verifySendData);
+                statusMsgModelCall.enqueue(new Callback<StatusMsgModel>(){
+
+                    @Override
+                    public void onResponse(Call<StatusMsgModel> call, Response<StatusMsgModel> response) {
+
+                        StatusMsgModel statusMsgModel=response.body();
+                        if(statusMsgModel.getStatus()==1) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Intent intent=new Intent(context,FarmDetailsUpdateActivity.class);
+                            ActivityOptions options = null;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                            }
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                context.startActivity(intent, options.toBundle());
+                            }else{
+                                startActivity(intent);
+                            }
+                            //Toast.makeText(context, statusMsgModel.getMsg(), Toast.LENGTH_SHORT).show();
+                        }else{
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(context, "Response Error Try again latter", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusMsgModel> call, Throwable t) {
+
+                    }
+
+                });
+              /*  str_et_amount=et_exp_amount.getText().toString().trim();
+                str_et_date=et_exp_date.getText().toString().trim();
+                str_et_narration=et_exp_narration.getText().toString().trim();
+
+                register("0","1",str_et_amount,str_et_date,pictureImagePath,str_et_narration,"0");*/
+                //public void register(String comp_id, String sv_id, String amount,String exp_date, String img_path,String comment, String category_id){
+
+
+
+
+
+                return null;
+            }
+
+
+            @Override
+            protected void onPreExecute() {
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+
+
+            }
+            @Override
+            protected void onProgressUpdate(Void... values) {
+                super.onProgressUpdate(values);
+            }
+
+        }
 
     }
 
