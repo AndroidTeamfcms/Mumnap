@@ -72,6 +72,8 @@ public class SplashActivity extends AppCompatActivity {
             mHandler.sendEmptyMessage(0);
         }
     };
+
+
     private Handler mHandler = new Handler() {
 
         @Override

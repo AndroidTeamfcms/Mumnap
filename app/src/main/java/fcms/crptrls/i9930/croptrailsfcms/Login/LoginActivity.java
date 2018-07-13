@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity implements android.location
             public void onClick(View v) {
 
 
-                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                /*if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
                     // here to request the missing permissions, and then overriding
@@ -197,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements android.location
                                     // Logic to handle location object
                                 }
                             }
-                        });
+                        });*/
 
                 if(ti_email.getText().toString().trim().matches("")){
                             ti_email.setError("Username can't be null");
@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity implements android.location
 
                 }else{
                     progressBar.setVisibility(View.VISIBLE);
-                    String public_ip=getPublicIPAddress(context);
+                    String public_ip=/*getPublicIPAddress(context);*/"";
                     AsyncTaskRunner asyncTaskRunner=new AsyncTaskRunner();
                     asyncTaskRunner.execute(gps_cordinates,public_ip);
                 }
@@ -315,10 +315,10 @@ public class LoginActivity extends AppCompatActivity implements android.location
             case 2: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(context, "granteed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "granteed", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(context, "not granted", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "not granted", Toast.LENGTH_SHORT).show();
 
                 }
                 return;
@@ -437,7 +437,7 @@ public class LoginActivity extends AppCompatActivity implements android.location
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(context, " "+location.getLatitude()+"    "+location.getLongitude(), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(context, " "+location.getLatitude()+"    "+location.getLongitude(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -3,6 +3,7 @@ package fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,12 +26,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView;
 import fcms.crptrls.i9930.croptrailsfcms.DataHandler.DataHandler;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailModel.AddVisitSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.Report.Model.SendFarmData;
+import fcms.crptrls.i9930.croptrailsfcms.Report.Model.ViewFarmData;
+import fcms.crptrls.i9930.croptrailsfcms.Report.Model.ViewFarmResult;
+import fcms.crptrls.i9930.croptrailsfcms.Report.VisitReportActivity;
 import fcms.crptrls.i9930.croptrailsfcms.StatusMsgModel.StatusMsgModel;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
 import fcms.crptrls.i9930.croptrailsfcms.Map.VerifyArea.MapsActivity;
@@ -101,6 +109,12 @@ public class FarmDetailsActivity extends AppCompatActivity {
     String[] comment_str_arr;
     String[] pres_arr;
     TextView farm_lot_no;
+    List<List<ViewFarmResult>> resultList;
+    List<ViewFarmResult> viewFarmResults;
+    LinearLayout l1;
+    LinearLayout.LayoutParams params1;
+
+
 
     String navigateTo="";
 
@@ -175,6 +189,12 @@ public class FarmDetailsActivity extends AppCompatActivity {
         visit_submit=(TextView)findViewById(R.id.act_pres_submit);
 
 
+        params1=new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+        l1=(LinearLayout)findViewById(R.id.dynamic_button);
+
+
 
         String actual_area=DataHandler.newInstance().getFetchFarmResult().getActualArea().toString();
         String soil_type=DataHandler.newInstance().getFetchFarmResult().getSoilType().toString();
@@ -200,6 +220,9 @@ public class FarmDetailsActivity extends AppCompatActivity {
             }
         }
 
+
+            AsyncFetchVisit asyncFetchVisit=new AsyncFetchVisit();
+            asyncFetchVisit.execute();
 
 
         visit_submit.setOnClickListener(new View.OnClickListener() {
@@ -691,4 +714,77 @@ public class FarmDetailsActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+    class AsyncFetchVisit extends AsyncTask<String,Void,String> {
+        public AsyncFetchVisit() {
+            super();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
+            AddVisitSendData addVisitSendData=new AddVisitSendData();
+            SendFarmData sendFarmData=new SendFarmData();
+
+            sendFarmData.setFarm_id("1");
+            sendFarmData.setComp_id("1");
+            Call<ViewFarmData> callData=apiService.viewFarmDataFunction(sendFarmData);
+            callData.enqueue(new Callback<ViewFarmData>() {
+                @Override
+                public void onResponse(Call<ViewFarmData> call, Response<ViewFarmData> response) {
+                    ViewFarmData viewFarmData=response.body();
+                    //String status=viewFarmData.getStatus().toString();
+
+                    String msg=viewFarmData.getMsg().toString();
+                    resultList=viewFarmData.getResult();
+                    int l=resultList.size();
+                    makeButtons(l);
+                    for(int i=0;i<resultList.size();i++) {
+                        viewFarmResults = resultList.get(i);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ViewFarmData> call, Throwable t) {
+                }
+            });
+
+            return null;
+        }
+    }
+
+
+    public void makeButtons(int l)  {
+        for(int i=0;i<l;i++){
+            final int x=i;
+            final int m=i+1;
+            final String y=String.valueOf(m);
+            Button btn=new Button(this);
+            btn.setText("Visit"+m);
+            int color= Color.parseColor("#00f0f0");
+            btn.setBackgroundColor(color);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    DataHandler.newInstance().setViewFarmResultList(resultList.get(x));
+                    Intent intent=new Intent(getApplicationContext(),VisitReportActivity.class);
+                    intent.putExtra("visit",y);
+                    startActivity(intent);
+                    //Toast.makeText(FirstPage.this, "Button"+x+"clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
+            params1.setMargins(20,60,20,0);
+            btn.setLayoutParams(params1);
+            l1.addView(btn);
+
+
+        }
+
+    }
+
 }

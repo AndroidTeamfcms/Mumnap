@@ -23,15 +23,17 @@
             android:layout_height="match_parent">
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"></LinearLayout>
+
             <TextView
                 android:id="@+id/farm_lot_no"
                 android:text="Lot No"
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+
+
+
 
             <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
                 android:layout_below="@id/farm_lot_no"
@@ -5254,9 +5256,17 @@
             </RelativeLayout>-->
 
 
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/dynamic_button"
+                android:layout_below="@id/show_farm_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></LinearLayout
+                >
             <RelativeLayout
                 android:layout_marginTop="15dp"
-                android:layout_below="@id/show_farm_details"
+                android:layout_below="@id/dynamic_button"
                 android:id="@+id/rel_add_visit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">

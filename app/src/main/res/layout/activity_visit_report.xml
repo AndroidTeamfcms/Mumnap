@@ -1,0 +1,1592 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_below="@id/toolbar_actionbar"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--1st row-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/firstLinear"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:paddingTop="5dp"
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Name of farmer"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:textColor="#000"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Seed lot numbers"
+                    android:textColor="#000"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:textColor="#000"
+
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+                android:id="@+id/v1"
+                ></View>
+
+
+            <!--2nd row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Father Name"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:textColor="#000"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="No of acres issued"
+                    android:textColor="#000"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:textColor="#000"
+
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+
+                ></View>
+            <!--3rd row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Mobile Number"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:textColor="#000"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Seed issued in kg"
+                    android:textColor="#000"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:textColor="#000"
+
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+
+                ></View>
+            <!--4th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Village Name"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:textColor="#000"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Sowing done acres"
+                    android:textColor="#000"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:textColor="#000"
+
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+
+                ></View>
+
+            <!--5th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Mandal"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:textColor="#000"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Sowing done date"
+                    android:textColor="#000"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:textColor="#000"
+
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+
+                ></View>
+            <!--6th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Issued lot number"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:textColor="#000"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Expected harvest date"
+                    android:textColor="#000"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:textColor="#000"
+
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+
+                ></View>
+
+            <!--7th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="VISIT-"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:textColor="#000"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Standing crop in acres"
+                    android:textColor="#000"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:textColor="#000"
+
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"
+
+                ></View>
+
+
+
+        </LinearLayout>  <!--end of parent linear Layout1 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="10dp"
+
+            android:id="@+id/firstLinear1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="#000000"
+                android:layout_gravity="center"
+                android:text="VISIT NO-"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:id="@+id/visitNumber"
+                />
+        </LinearLayout>
+
+        <!--2nd parent linear layout-->
+
+        <LinearLayout
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:id="@+id/secondLinear"
+            android:layout_below="@id/firstLinear1"
+            >
+            <View
+                android:layout_width="2px"
+                android:layout_height="match_parent"
+                android:background="#000"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+
+            <!--1st row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                >
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:text="Activities done by the farmer"
+                    android:textStyle="bold"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--2nd row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Action"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Done date"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Material"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="Quantity"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--3rd row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="INM"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/INMDate1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/INMMaterial1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="-"
+                    android:id="@+id/INMQuantity1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--4th row-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="IWM"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IWMDate1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IWMMaterial1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="-"
+                    android:id="@+id/IWMQuantity1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--5th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="IPM"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IPMDate1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IPMMaterial1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="-"
+                    android:id="@+id/IPMQuantity1"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--6th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="CPC"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.97"
+                    android:textColor="#000"
+                    android:text="-"
+                    android:id="@+id/CPC1"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--7th row-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="SML"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.97"
+                    android:textColor="#000"
+                    android:text="-"
+                    android:id="@+id/SML1"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--ROW8-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000"
+
+                    android:text="Other"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.97"
+                    android:textColor="#000"
+                    android:text="-"
+                    android:id="@+id/Other1"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+
+        </LinearLayout>   <!--end of second parent-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="30dp"
+            android:id="@+id/thirdLinear"
+            android:layout_below="@id/secondLinear">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--1st row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                >
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:text="Prescription issued by Field assistant"
+                    android:textStyle="bold"
+                    android:textColor="#000"/>
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--2nd row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Action"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="To be done by"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="Material"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="Quantity"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--3rd row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="INM"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/INMDate2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/INMMaterial2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="-"
+                    android:id="@+id/INMQuantity2"
+                    android:textColor="#000"/>
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--4th row-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="IWM"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IWMDate2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IWMMaterial2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="-"
+                    android:id="@+id/IWMQuantity2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--5th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="IPM"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IPMDate2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.97"
+                    android:text="-"
+                    android:id="@+id/IPMMaterial2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.97"
+                    android:text="-"
+                    android:id="@+id/IPMQuantity2"
+                    android:textColor="#000"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--6th row-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="CPC"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.97"
+                    android:textColor="#000"
+                    android:text="-"
+                    android:id="@+id/CPC2"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--7th row-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="SML"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.97"
+                    android:textColor="#000"
+                    android:text="-"
+                    android:id="@+id/SML2"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!--ROW8-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="Thinning"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.97"
+                    android:textColor="#000"
+                    android:text="-"
+                    android:id="@+id/Thinning2"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+            <!---row9-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="Other"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#000"
+                    android:layout_weight="0.03"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.97"
+                    android:textColor="#000"
+                    android:id="@+id/Other2"
+                    android:text="-"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#000"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
+
+
+
+
+
+
+
+
+        </LinearLayout><!--end of third parent-->
+
+
+        <!--layout for first images:1,2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/fourthLinear"
+            android:layout_below="@id/thirdLinear"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:visibility="gone"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/i0"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/i1"/>
+        </LinearLayout>
+
+        <!--layout for first images:3,4-->
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/fifthLinear"
+            android:layout_below="@id/fourthLinear"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+
+            android:paddingTop="15dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/i2"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/i3"/>
+        </LinearLayout>
+        <!--layout for first images:5,6-->
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/sixthLinear"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/fifthLinear"
+            android:orientation="horizontal"
+            android:weightSum="10"
+
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/i4"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/i5"/>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
+</RelativeLayout>
