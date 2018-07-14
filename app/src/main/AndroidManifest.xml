@@ -82,16 +82,17 @@
         <activity
             android:name=".ExpenseData.ExpenseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TestRetrofit.TestActivity" />
+        <activity android:name=".TestFolder.TestActivity" />
         <activity
             android:name=".Farm_Farmer_Details.FarmDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Report.VisitReportActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Report.VisitReportActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TestFolder.DynamicButtonAdd_demo.TestForAddViewActivity"></activity>
     </application>
 
 </manifest>

@@ -28,6 +28,7 @@ import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmData;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmResult;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmSendData;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,6 +60,7 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
     ProgressBar progressBar;
     EditText et_search;
     ImageView search_img;
+    String comp_id,user_id;
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,6 +90,8 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=getActivity().getApplicationContext();
+        comp_id= SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID);
+        user_id=SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVUSERID);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -195,7 +199,7 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
             ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
             FetchFarmSendData fetchFarmSendData=new FetchFarmSendData();
 
-            fetchFarmSendData.setComp_id("1");
+            fetchFarmSendData.setComp_id(comp_id);
             fetchFarmSendData.setCluster_id("1");
             Call<FetchFarmData> fetchFarmDataCall=apiService.fetchFarmDatafncn(fetchFarmSendData);
             fetchFarmDataCall.enqueue(new Callback<FetchFarmData>() {

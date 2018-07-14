@@ -143,11 +143,16 @@ public class FarmDetailsUpdateActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         sowingDateet.setText(sdf.format(myCalendarsowing.getTime()));
 
-        myCalendarsowing.add(Calendar.DATE,45);
-        expFloweringDateet.setText(sdf.format(myCalendarsowing.getTime()));
 
-        myCalendarsowing.add(Calendar.DATE,45);
-        expHarvestingDateet.setText(sdf.format(myCalendarsowing.getTime()));
+        myCalendarflowering=myCalendarsowing;
+        myCalendarflowering.add(Calendar.DATE,45);
+        expFloweringDateet.setText(sdf.format(myCalendarflowering.getTime()));
+
+        myCalendarharvesting=myCalendarsowing;
+        myCalendarharvesting.add(Calendar.DATE,45);
+        expHarvestingDateet.setText(sdf.format(myCalendarharvesting.getTime()));
+
+        myCalendarsowing.add(Calendar.DATE,-90);
     }
 
    /* private void updatefloweringDateLabel() {

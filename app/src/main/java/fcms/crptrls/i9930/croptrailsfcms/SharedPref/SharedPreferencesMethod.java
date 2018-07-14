@@ -9,6 +9,9 @@ public class SharedPreferencesMethod {
     public static Context appContext;
     public static final String SHARED_PREFERENCE_NAME = "FcmsSharedPref";
     public static final String SVLOGIN = "SVLOGIN";
+    public static final String SVCOMPID = "SVCOMPID";
+    public static final String SVUSERID = "SVUSERID";
+
 
 
 

@@ -66,6 +66,7 @@ import java.util.concurrent.RunnableFuture;
 
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.LandingActivity;
+import fcms.crptrls.i9930.croptrailsfcms.Login.model.LoginData;
 import fcms.crptrls.i9930.croptrailsfcms.Login.model.Post;
 import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.R;
@@ -588,8 +589,12 @@ public class LoginActivity extends AppCompatActivity implements android.location
                         Post post = response.body();
                         progressBar.setVisibility(View.INVISIBLE);
                         if(post.getMsg().equals("Login Successfull")) {
+                            LoginData loginData=post.getData();
+                            Toast.makeText(context, loginData.getUserId()+"", Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(context,LandingActivity.class);
                             SharedPreferencesMethod.setBoolean(context, SharedPreferencesMethod.SVLOGIN, true);
+                            SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVCOMPID,loginData.getCompId().toString());
+                            SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVUSERID,loginData.getUserId().toString());
                             ActivityOptions options =
                                     null;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.TestActivity">
+    tools:context="fcms.crptrls.i9930.croptrailsfcms.TestFolder.TestActivity">
 
     <LinearLayout
         android:id="@+id/linear_one"

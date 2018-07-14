@@ -41,6 +41,7 @@ import fcms.crptrls.i9930.croptrailsfcms.Map.ShowArea.ShowAreaOnMapActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.Map.VerifyArea.MapsActivity;
+import fcms.crptrls.i9930.croptrailsfcms.TestFolder.DynamicButtonAdd_demo.TestForAddViewActivity;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FarmFragment.OnFragmentInteractionListener, FarmerFragment.OnFragmentInteractionListener
@@ -254,8 +255,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             } else {
                 startActivity(intent);
             }
-        }/* else if (id == R.id.nav_share) {
-            Intent intent = new Intent(context, TestActivity.class);
+        } else if (id == R.id.nav_share) {
+            Intent intent = new Intent(context, TestForAddViewActivity.class);
             ActivityOptions options = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
@@ -265,7 +266,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             } else {
                 startActivity(intent);
             }
-        }*/ else if (id == R.id.nav_send) {
+        }
+
+
+        else if (id == R.id.nav_send) {
             Intent intent = new Intent(context, ShowAreaOnMapActivity
                     .class);
             ActivityOptions options = null;

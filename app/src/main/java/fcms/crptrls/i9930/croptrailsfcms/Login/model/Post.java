@@ -11,6 +11,18 @@ public class Post {
     @Expose
     private String msg;
 
+    @SerializedName("data")
+    @Expose
+    private LoginData data;
+
+    public LoginData getData() {
+        return data;
+    }
+
+    public void setData(LoginData data) {
+        this.data = data;
+    }
+
     public Integer getStatus() {
         return status;
     }

@@ -7,11 +7,21 @@
     tools:context="fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsActivity">
 
     <include
-
         android:id="@+id/toolbar_actionbar"
-        layout="@layout/my_toolbar"
+        layout="@layout/toolbar_for_farm_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/progressBar_cyclic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,19 +34,118 @@
 
 
 
-            <TextView
-                android:id="@+id/farm_lot_no"
-                android:text="Lot No"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/farmer_and_farm_info_rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:background="@color/li8_new_theme_back"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_15ssp"
+                    android:id="@+id/farmer_info_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="Farm And Farmer Info"
+                    android:gravity="center"/>
+
+
+                <android.support.v7.widget.CardView
+                    android:padding="@dimen/_10sdp"
+                    android:layout_below="@id/farmer_info_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:weightSum="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/farm_lot_no"
+                                android:padding="@dimen/_5sdp"
+                                android:textSize="@dimen/_13ssp"
+                                android:gravity="center"
+                                android:layout_weight=".5"
+                                android:text="Lot No"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:padding="@dimen/_5sdp"
+                                android:textSize="@dimen/_13ssp"
+                                android:gravity="center"
+                                android:layout_weight=".5"
+                                android:id="@+id/farmer_number"
+                                android:text="Farmer Name"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:weightSum="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:gravity="center"
+                                android:layout_weight=".5"
+                                android:text="Seed Provided On"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:gravity="center"
+                                android:layout_weight=".5"
+                                android:text="Seed Quantity"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:gravity="center"
+                                android:text="Address : 122/A nagzhiri ujjain MP"
+                                android:layout_centerHorizontal="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                </android.support.v7.widget.CardView>
+
+
+            </RelativeLayout>
+
+
 
 
 
 
 
             <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
-                android:layout_below="@id/farm_lot_no"
+                android:layout_below="@id/farmer_and_farm_info_rel"
                 android:id="@+id/verify_farm_area_and_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,8 +159,9 @@
                 android:textSize="15sp"
                 app:edittextfont="ROBOTO-REGULAR.TTF" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:visibility="gone"
+                android:orientation="vertical"
                 android:layout_below="@id/verify_farm_area_and_details"
                 android:id="@+id/show_farm_details"
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -380,7 +490,7 @@
                 </android.support.v7.widget.CardView>
                 <!--end of card7-->
 
-            </RelativeLayout>
+            </LinearLayout>
 
 
 
@@ -5255,15 +5365,64 @@
 
             </RelativeLayout>-->
 
+            <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
+                android:layout_below="@id/show_farm_details"
+                android:id="@+id/germination_and_spacing_custom_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/line"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_white_24dp"
+                android:padding="20dp"
+                android:singleLine="true"
+                android:text="Germination and Population details"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:edittextfont="ROBOTO-REGULAR.TTF" />
+
+
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/germination_and_spacing_custom_text"
+                android:id="@+id/rel_show_visits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
+                    android:id="@+id/show_previous_visits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line"
+                    android:padding="20dp"
+                    android:singleLine="true"
+                    android:text="Show Previous Visits"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:edittextfont="ROBOTO-REGULAR.TTF" >
+
+                </fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView>
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_17sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/down_arrow_img_show_visits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_down_white_24dp"/>
+            </RelativeLayout>
+
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:id="@+id/dynamic_button"
-                android:layout_below="@id/show_farm_details"
+                android:layout_below="@id/rel_show_visits"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></LinearLayout
-                >
+                android:layout_height="wrap_content">
+            </LinearLayout>
+
+
             <RelativeLayout
                 android:layout_marginTop="15dp"
                 android:layout_below="@id/dynamic_button"
@@ -5294,10 +5453,9 @@
                     android:src="@drawable/ic_keyboard_arrow_down_white_24dp"/>
             </RelativeLayout>
 
-
-
-            <RelativeLayout
+            <LinearLayout
                 android:visibility="gone"
+                android:orientation="vertical"
                 android:id="@+id/rel_add_visit_drop"
                 android:layout_below="@id/rel_add_visit"
                 android:layout_width="match_parent"
@@ -6874,7 +7032,211 @@
 
 
 
-            </RelativeLayout>
+            </LinearLayout>
+            <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
+                android:layout_below="@id/rel_add_visit_drop"
+                android:id="@+id/harvesting_custom_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/line"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_white_24dp"
+                android:padding="20dp"
+                android:singleLine="true"
+                android:text="Germination and Population details"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:edittextfont="ROBOTO-REGULAR.TTF" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:id="@+id/cards_map_and_germination"
+    android:layout_below="@id/rel_add_visit_drop"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                app:cardBackgroundColor="#fff"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:id="@+id/card_view_show_map"
+                app:cardCornerRadius="@dimen/_5sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_65sdp"
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                >
+
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/farm_area"
+                    android:alpha=".3"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View Farm Area"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                app:cardCornerRadius="@dimen/_5sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_65sdp"
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                app:cardBackgroundColor="#fff"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:text="Calculate Germination and Spcaing"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/spacing_new"
+                    android:alpha=".3"/>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_below="@id/cards_map_and_germination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/actual_flowering_card_view"
+                            app:cardCornerRadius="@dimen/_5sdp"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_65sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:elevation="@dimen/_10sdp"
+                            app:cardBackgroundColor="#fff"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            >
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_12ssp"
+                                android:text="Enter Actual Flowering Date"/>
+
+                            <ImageView
+                                android:scaleType="fitXY"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/flowering"
+                                android:focusable="true"
+                                android:alpha=".3"/>
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/actual_harvesting_card_view"
+                            app:cardCornerRadius="@dimen/_5sdp"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_65sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:elevation="@dimen/_10sdp"
+                            app:cardBackgroundColor="#fff"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            >
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_12ssp"
+                                android:text="Enter Actual Harvesting Date"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/harvesting"
+                                android:alpha=".3"/>
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
 
 
 
