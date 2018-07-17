@@ -43,9 +43,11 @@
         <activity
             android:name=".Login.LoginActivity"
             android:label="@string/app_name"
+
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"
+                    />
             </intent-filter>
         </activity>
         <!--
@@ -58,6 +60,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
+
             android:value="@string/google_maps_key" />
 
         <activity
@@ -92,7 +95,8 @@
         <activity
             android:name=".Report.VisitReportActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TestFolder.DynamicButtonAdd_demo.TestForAddViewActivity"></activity>
+        <activity android:name=".TestFolder.DynamicButtonAdd_demo.TestForAddViewActivity">
+        </activity>
     </application>
 
 </manifest>

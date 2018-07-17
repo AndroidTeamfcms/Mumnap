@@ -13,6 +13,7 @@
         android:layout_height="wrap_content" />
 
     <ProgressBar
+        android:elevation="10dp"
         android:visibility="invisible"
         android:id="@+id/progressBar_cyclic"
         android:layout_width="wrap_content"
@@ -5419,7 +5420,7 @@
                 android:id="@+id/dynamic_button"
                 android:layout_below="@id/rel_show_visits"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
             </LinearLayout>
 
 
@@ -5454,7 +5455,6 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:orientation="vertical"
                 android:id="@+id/rel_add_visit_drop"
                 android:layout_below="@id/rel_add_visit"
@@ -5632,14 +5632,14 @@
 
                                     </LinearLayout>
 
-                                    <EditText
+                                    <TextView
                                         android:id="@+id/farmer_inm_done_date"
                                         android:layout_gravity="center"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:cursorVisible="false"
                                         android:background="@android:color/transparent"
-                                        android:hint="Done Date"/>
+                                        android:hint="DD/MM/YYYY"/>
 
                                 </LinearLayout>
                             </RelativeLayout>
@@ -5753,14 +5753,14 @@
 
                                     </LinearLayout>
 
-                                    <EditText
+                                    <TextView
                                         android:id="@+id/farmer_iwm_done_date"
                                         android:layout_gravity="center"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:cursorVisible="false"
                                         android:background="@android:color/transparent"
-                                        android:hint="Done Date"/>
+                                        android:hint="DD/MM/YYYY"/>
 
                                 </LinearLayout>
                             </RelativeLayout>
@@ -5879,14 +5879,14 @@
 
                                     </LinearLayout>
 
-                                    <EditText
+                                    <TextView
                                         android:id="@+id/farmer_ipm_done_date"
                                         android:background="@android:color/transparent"
                                         android:cursorVisible="false"
                                         android:layout_gravity="center"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:hint="Done Date"/>
+                                        android:hint="DD/MM/YYYY"/>
 
                                 </LinearLayout>
                             </RelativeLayout>
@@ -6373,12 +6373,12 @@
 
                                     </LinearLayout>
 
-                                    <EditText
+                                    <TextView
                                         android:id="@+id/assistant_inm_done_date"
                                         android:layout_gravity="center"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:hint="Done Date"/>
+                                        android:hint="DD/MM/YYYY"/>
 
                                 </LinearLayout>
                             </RelativeLayout>
@@ -6490,12 +6490,12 @@
 
                                     </LinearLayout>
 
-                                    <EditText
+                                    <TextView
                                         android:id="@+id/assistant_iwm_done_date"
                                         android:layout_gravity="center"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:hint="Done Date"/>
+                                        android:hint="DD/MM/YYYY"/>
 
                                 </LinearLayout>
                             </RelativeLayout>
@@ -6616,12 +6616,12 @@
 
                                     </LinearLayout>
 
-                                    <EditText
+                                    <TextView
                                         android:id="@+id/assistant_ipm_done_date"
                                         android:layout_gravity="center"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:hint="Done Date"/>
+                                        android:hint="DD/MM/YYYY"/>
 
                                 </LinearLayout>
                             </RelativeLayout>

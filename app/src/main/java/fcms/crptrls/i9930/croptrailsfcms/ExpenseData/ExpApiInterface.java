@@ -6,6 +6,8 @@ import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailModel.Add
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.Model.FarmDetailsUpdateSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmData;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmSendData;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitDataAndStatus;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Login.model.Post;
 import fcms.crptrls.i9930.croptrailsfcms.Map.ShowArea.Model.GetGpsCoordinates;
 import fcms.crptrls.i9930.croptrailsfcms.RegisterURLS.AllUrls;
@@ -69,6 +71,10 @@ import retrofit2.http.Part;
 
     @POST("android/get_farm_gps")
     Call<GetGpsCoordinates>  getGpsCoordinates(@Body AddVisitSendData addVisitSendData);
+
+    @POST("android/get_units")
+    Call<UnitDataAndStatus>  getUnitData(@Body UnitSendData unitSendData);
+
 
 
 

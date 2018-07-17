@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseAdapter.ExpenseAdapter;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.Datum;
@@ -60,6 +61,7 @@ import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.ExpenseRegisto
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.ExpenseSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.ApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.ModelRecieveData;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.ModelSendData;
@@ -122,6 +124,12 @@ public class ExpenseActivity extends AppCompatActivity {
         et_exp_narration=(EditText)findViewById(R.id.comment_et);
         progressBar=(ProgressBar)findViewById(R.id.progressBar_cyclic);
 
+
+       /* Set<String> stringSet= SharedPreferencesMethod.getStringSharedPreferenceshistory(context,SharedPreferencesMethod.UNITS);
+
+        for (String c:stringSet) {
+            Toast.makeText(context, c, Toast.LENGTH_SHORT).show();
+        }*/
 
 
         progressBar.setVisibility(View.VISIBLE);

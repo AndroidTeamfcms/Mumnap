@@ -132,6 +132,16 @@ public class FarmDetailsUpdateActivity extends AppCompatActivity {
         update_farm_details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(spinner_irri_source.getSelectedItem().toString().equals("Select")){
+
+                }else if(spinner_perv_crop.getSelectedItem().toString().equals("Select")){
+
+                }else if(spinner_irri_type.getSelectedItem().toString().equals("Select")){
+
+                }else if(spinner_soil_type.getSelectedItem().toString().equals("Select")){
+
+                }
                 AsyncTaskRunner asyncTaskRunner=new AsyncTaskRunner();
                 asyncTaskRunner.execute();
             }

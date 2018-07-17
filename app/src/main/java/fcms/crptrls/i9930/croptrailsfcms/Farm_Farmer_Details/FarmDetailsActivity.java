@@ -81,30 +81,32 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
     Spinner farmer_inm_material;
     EditText farmer_inm_quantity;
     Spinner farmer_inm_unit;
-    EditText farmer_inm_done_date;
     Spinner farmer_iwm_material;
     EditText farmer_iwm_quantity;
     Spinner farmer_iwm_unit;
-    EditText farmer_iwm_done_date;
     Spinner farmer_ipm_material;
     EditText farmer_ipm_quantity;
     Spinner farmer_ipm_unit;
-    EditText farmer_ipm_done_date;
     Spinner farmer_cpc_grade;
     Spinner farmer_sml_moisture_level;
     EditText farmer_other_comment;
     Spinner assistant_inm_material;
     EditText assistant_inm_quantity;
     Spinner assistant_inm_unit;
-    EditText assistant_inm_done_date;
     Spinner assistant_iwm_material;
     EditText assistant_iwm_quantity;
     Spinner assistant_iwm_unit;
-    EditText assistant_iwm_done_date;
     Spinner assistant_ipm_material;
     EditText assistant_ipm_quantity;
     Spinner assistant_ipm_unit;
-    EditText assistant_ipm_done_date;
+
+    TextView farmer_inm_done_date;
+    TextView farmer_iwm_done_date;
+    TextView farmer_ipm_done_date;
+    TextView assistant_inm_done_date;
+    TextView assistant_iwm_done_date;
+    TextView assistant_ipm_done_date;
+
     Spinner assistant_cpc_grade;
     Spinner assistant_sml_moisture_level;
     Spinner assistant_thining_moisture_level;
@@ -151,7 +153,49 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
 
     TextView add_details_irrigation_source, add_details_previous_crop, add_details_irrigation_type, add_details_soil_type;
     TextView add_details_sowing_date, add_details_exp_harvesting_date, add_details_exp_flowering_date;
+    Calendar myCalendarActinm = Calendar.getInstance();
+    Calendar myCalendarActiwm = Calendar.getInstance();
+    Calendar myCalendarActipm = Calendar.getInstance();
+    Calendar myCalendarDescinm = Calendar.getInstance();
+    Calendar myCalendarDesciwm = Calendar.getInstance();
+    Calendar myCalendarDescipm = Calendar.getInstance();
 
+
+
+
+
+
+
+    private void updateactinm() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        farmer_inm_done_date.setText(sdf.format(myCalendarActinm.getTime()));
+    }
+    private void updateactiwm() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        farmer_iwm_done_date.setText(sdf.format(myCalendarActiwm.getTime()));
+    }
+    private void updateactipm() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        farmer_ipm_done_date.setText(sdf.format(myCalendarActipm.getTime()));
+    }
+    private void updatedescinm() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        assistant_inm_done_date.setText(sdf.format(myCalendarDescinm.getTime()));
+    }
+    private void updatedesciwm() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        assistant_iwm_done_date.setText(sdf.format(myCalendarDesciwm.getTime()));
+    }
+    private void updatedescipm() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        assistant_ipm_done_date.setText(sdf.format(myCalendarDescipm.getTime()));
+    }
 
 
 
@@ -182,12 +226,11 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
 
         String cap = DataHandler.newInstance().getFetchFarmResult().getName().substring(1);
 
+        title_name.setText(firstLetter+cap);
         title_address.setText(DataHandler.newInstance().getFetchFarmResult().getAddL1()+", "+DataHandler.newInstance().getFetchFarmResult().getAddL2());
 
         mActionBarToolbar = (Toolbar) findViewById(R.id.confirm_order_toolbar_layout_for_farm_details);
         setSupportActionBar(mActionBarToolbar);
-
-
 
         //getSupportActionBar().setTitle("My Title");
 
@@ -215,27 +258,29 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         farmer_inm_material = (Spinner) findViewById(R.id.farmer_inm_material);
         farmer_inm_quantity = (EditText) findViewById(R.id.farmer_inm_quantity);
         farmer_inm_unit = (Spinner) findViewById(R.id.farmer_inm_unit);
-        farmer_inm_done_date = (EditText) findViewById(R.id.farmer_inm_done_date);
         farmer_iwm_material = (Spinner) findViewById(R.id.farmer_iwm_material);
         farmer_iwm_quantity = findViewById(R.id.farmer_iwm_quantity);
         farmer_iwm_unit = (Spinner) findViewById(R.id.farmer_iwm_unit);
-        farmer_iwm_done_date = (EditText) findViewById(R.id.farmer_iwm_done_date);
         farmer_ipm_material = (Spinner) findViewById(R.id.farmer_ipm_material);
         farmer_ipm_quantity = (EditText) findViewById(R.id.farmer_ipm_quantity);
         farmer_ipm_unit = (Spinner) findViewById(R.id.farmer_ipm_unit);
-        farmer_ipm_done_date = (EditText) findViewById(R.id.farmer_ipm_done_date);
         farmer_cpc_grade = (Spinner) findViewById(R.id.farmer_cpc_grade);
         farmer_sml_moisture_level = (Spinner) findViewById(R.id.farmer_sml_moisture_level);
         farmer_other_comment = (EditText) findViewById(R.id.farmer_other_comment);
         assistant_inm_material = (Spinner) findViewById(R.id.assistant_inm_material);
         assistant_inm_quantity = (EditText) findViewById(R.id.assistant_inm_quantity);
         assistant_inm_unit = (Spinner) findViewById(R.id.assistant_inm_unit);
-        assistant_inm_done_date = findViewById(R.id.assistant_inm_done_date);
         assistant_iwm_material = (Spinner) findViewById(R.id.assistant_iwm_material);
         assistant_iwm_quantity = findViewById(R.id.assistant_iwm_quantity);
         assistant_iwm_unit = (Spinner) findViewById(R.id.assistant_iwm_unit);
-        assistant_iwm_done_date = (EditText) findViewById(R.id.assistant_iwm_done_date);
-        assistant_ipm_done_date = (EditText) findViewById(R.id.assistant_ipm_done_date);
+
+        farmer_inm_done_date = (TextView) findViewById(R.id.farmer_inm_done_date);
+        farmer_iwm_done_date = (TextView) findViewById(R.id.farmer_iwm_done_date);
+        farmer_ipm_done_date = (TextView) findViewById(R.id.farmer_ipm_done_date);
+        assistant_inm_done_date = (TextView)findViewById(R.id.assistant_inm_done_date);
+        assistant_iwm_done_date = (TextView) findViewById(R.id.assistant_iwm_done_date);
+        assistant_ipm_done_date = (TextView) findViewById(R.id.assistant_ipm_done_date);
+
         assistant_ipm_material = (Spinner) findViewById(R.id.assistant_ipm_material);
         assistant_ipm_quantity = (EditText) findViewById(R.id.assistant_ipm_quantity);
         assistant_ipm_unit = (Spinner) findViewById(R.id.assistant_ipm_unit);
@@ -264,6 +309,125 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         params1 = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+        final DatePickerDialog.OnDateSetListener dateactinm = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarActinm.set(Calendar.YEAR, year);
+                myCalendarActinm.set(Calendar.MONTH, monthOfYear);
+                myCalendarActinm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateactinm();
+            }
+        };
+
+        final DatePickerDialog.OnDateSetListener dateactiwm = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarActiwm.set(Calendar.YEAR, year);
+                myCalendarActiwm.set(Calendar.MONTH, monthOfYear);
+                myCalendarActiwm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateactiwm();
+            }
+        };
+
+        final DatePickerDialog.OnDateSetListener dateactipm = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarActipm.set(Calendar.YEAR, year);
+                myCalendarActipm.set(Calendar.MONTH, monthOfYear);
+                myCalendarActipm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateactipm();
+            }
+        };
+
+
+        final DatePickerDialog.OnDateSetListener datedescinm = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarDescinm.set(Calendar.YEAR, year);
+                myCalendarDescinm.set(Calendar.MONTH, monthOfYear);
+                myCalendarDescinm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updatedescinm();
+            }
+        };
+
+        final DatePickerDialog.OnDateSetListener datedesciwm = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarDesciwm.set(Calendar.YEAR, year);
+                myCalendarDesciwm.set(Calendar.MONTH, monthOfYear);
+                myCalendarDesciwm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateactiwm();
+            }
+        };
+
+        final DatePickerDialog.OnDateSetListener datedescipm = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarDescipm.set(Calendar.YEAR, year);
+                myCalendarDescipm.set(Calendar.MONTH, monthOfYear);
+                myCalendarDescipm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateactipm();
+            }
+        };
+
+
+
+        farmer_inm_done_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, dateactinm, myCalendarActinm
+                        .get(Calendar.YEAR), myCalendarActinm.get(Calendar.MONTH),
+                        myCalendarActinm.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        farmer_iwm_done_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, dateactiwm, myCalendarActiwm
+                        .get(Calendar.YEAR), myCalendarActiwm.get(Calendar.MONTH),
+                        myCalendarActiwm.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        farmer_ipm_done_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, dateactipm, myCalendarActipm
+                        .get(Calendar.YEAR), myCalendarActipm.get(Calendar.MONTH),
+                        myCalendarActipm.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        assistant_inm_done_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, datedescinm, myCalendarDescinm
+                        .get(Calendar.YEAR), myCalendarDescinm.get(Calendar.MONTH),
+                        myCalendarDescinm.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        assistant_iwm_done_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, datedesciwm, myCalendarDesciwm
+                        .get(Calendar.YEAR), myCalendarDesciwm.get(Calendar.MONTH),
+                        myCalendarDesciwm.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        assistant_ipm_done_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, datedescipm, myCalendarDescipm
+                        .get(Calendar.YEAR), myCalendarDescipm.get(Calendar.MONTH),
+                        myCalendarDescipm.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
 
 
         String actual_area = DataHandler.newInstance().getFetchFarmResult().getActualArea().toString();
@@ -330,7 +494,6 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onClick(View v) {
-
 
                 if (farmer_inm_material.getSelectedItem().toString().trim().equals("DAP")) {
                     farmer_inm_material_int = 1;
@@ -956,13 +1119,13 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
             addVisitSendData.setQty(quantity_str_arr);
             addVisitSendData.setUnit_id(unit_id_int_arr);
             addVisitSendData.setMaterial_id(material_int_arr);
-            addVisitSendData.setFarm_id(1);
-            addVisitSendData.setComp_id(1);
+            addVisitSendData.setFarm_id(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID)));
+            addVisitSendData.setComp_id(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID)));
             addVisitSendData.setApproved_method("abc");
             addVisitSendData.setVisit_date("1996-08-01");
             addVisitSendData.setVisit_number(2);
             addVisitSendData.setEffective_area(35);
-            addVisitSendData.setAdded_by(3);
+            addVisitSendData.setAdded_by(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVUSERID)));
 
             Call<StatusMsgModel> statusMsgModelCall = apiService.getVisitMsgStatus(addVisitSendData);
             statusMsgModelCall.enqueue(new Callback<StatusMsgModel>() {
@@ -994,11 +1157,10 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         protected String doInBackground(String... strings) {
 
             ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
-            AddVisitSendData addVisitSendData = new AddVisitSendData();
             SendFarmData sendFarmData = new SendFarmData();
 
-            sendFarmData.setFarm_id("1");
-            sendFarmData.setComp_id("1");
+            sendFarmData.setFarm_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID));
+            sendFarmData.setComp_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID));
             Call<ViewFarmData> callData = apiService.viewFarmDataFunction(sendFarmData);
             callData.enqueue(new Callback<ViewFarmData>() {
                 @Override

@@ -595,6 +595,7 @@ public class LoginActivity extends AppCompatActivity implements android.location
                             SharedPreferencesMethod.setBoolean(context, SharedPreferencesMethod.SVLOGIN, true);
                             SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVCOMPID,loginData.getCompId().toString());
                             SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVUSERID,loginData.getUserId().toString());
+                            SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVCLUSTERID,loginData.getClusterId().toString());
                             ActivityOptions options =
                                     null;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

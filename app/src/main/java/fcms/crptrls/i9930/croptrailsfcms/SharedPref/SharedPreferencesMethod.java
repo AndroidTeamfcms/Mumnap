@@ -3,7 +3,10 @@ package fcms.crptrls.i9930.croptrailsfcms.SharedPref;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.List;
 import java.util.Set;
+
+import fcms.crptrls.i9930.croptrailsfcms.Report.Model.ViewFarmResult;
 
 public class SharedPreferencesMethod {
     public static Context appContext;
@@ -11,6 +14,11 @@ public class SharedPreferencesMethod {
     public static final String SVLOGIN = "SVLOGIN";
     public static final String SVCOMPID = "SVCOMPID";
     public static final String SVUSERID = "SVUSERID";
+    public static final String SVCLUSTERID = "SVCLUSTERID";
+    public static final String SVFARMID = "SVCLUSTERID";
+    public static final String UNITS = "UNITS";
+
+
 
 
 
@@ -68,7 +76,7 @@ public class SharedPreferencesMethod {
     }
 
     public static void setInt(Context context, String name, int value) {
-        value=value+1;
+        //value=value+1;
         SharedPreferences.Editor editor = getEditor(context);
         editor.putInt(name, value);
         editor.commit();
@@ -100,6 +108,9 @@ public class SharedPreferencesMethod {
         SharedPreferences settings = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
         return settings.getLong(name, 0l);
     }
+
+
+
 
     public static void clear(Context context) {
         SharedPreferences.Editor editor = getEditor(context);

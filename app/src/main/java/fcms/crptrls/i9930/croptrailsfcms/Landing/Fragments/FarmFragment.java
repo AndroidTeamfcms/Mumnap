@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
@@ -60,7 +61,7 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
     ProgressBar progressBar;
     EditText et_search;
     ImageView search_img;
-    String comp_id,user_id;
+    String comp_id,user_id,cluster_id;
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,6 +93,7 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
         context=getActivity().getApplicationContext();
         comp_id= SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID);
         user_id=SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVUSERID);
+        cluster_id=SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCLUSTERID);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -200,27 +202,35 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
             FetchFarmSendData fetchFarmSendData=new FetchFarmSendData();
 
             fetchFarmSendData.setComp_id(comp_id);
-            fetchFarmSendData.setCluster_id("1");
+            fetchFarmSendData.setCluster_id(cluster_id);
             Call<FetchFarmData> fetchFarmDataCall=apiService.fetchFarmDatafncn(fetchFarmSendData);
             fetchFarmDataCall.enqueue(new Callback<FetchFarmData>() {
                 @Override
                 public void onResponse(Call<FetchFarmData> call, Response<FetchFarmData> response) {
+                    List<FetchFarmResult> fetchFarmResultList=new ArrayList<>();
 
                     try {
                         if (response != null) {
                             FetchFarmData fetchFarmData = response.body();
-                            List<FetchFarmResult> fetchFarmResultList = fetchFarmData.getResult();
-                            //Toast.makeText(context, fetchFarmData.getMsg(), Toast.LENGTH_SHORT).show();
 
-                            progressBar.setVisibility(View.INVISIBLE);
-                            farmDetailAdapter = new FarmDetailAdapter(context, fetchFarmResultList);
-                            farm_recycler_view.setHasFixedSize(true);
-                            farm_recycler_view.setAdapter(farmDetailAdapter);
-                            farmDetailAdapter.notifyDataSetChanged();
+                            if(fetchFarmData.getStatus()!=0) {
+                                 fetchFarmResultList = fetchFarmData.getResult();
+                                //Toast.makeText(context, fetchFarmData.getMsg(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                farmDetailAdapter = new FarmDetailAdapter(context, fetchFarmResultList);
+                                farm_recycler_view.setHasFixedSize(true);
+                                farm_recycler_view.setAdapter(farmDetailAdapter);
+                                farmDetailAdapter.notifyDataSetChanged();
 
-                            linearLayoutManager = new LinearLayoutManager(context);
-                            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                            farm_recycler_view.setLayoutManager(linearLayoutManager);
+                                linearLayoutManager = new LinearLayoutManager(context);
+                                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                                farm_recycler_view.setLayoutManager(linearLayoutManager);
+                            }else{
+                                progressBar.setVisibility(View.INVISIBLE);
+                                farmDetailAdapter = new FarmDetailAdapter(context, fetchFarmResultList);
+                                farm_recycler_view.setHasFixedSize(true);
+                                farm_recycler_view.setAdapter(farmDetailAdapter);
+                                }
 
                         }
                     }catch (Exception e){

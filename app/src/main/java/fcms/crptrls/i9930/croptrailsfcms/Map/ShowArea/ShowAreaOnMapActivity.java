@@ -68,6 +68,7 @@ import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.F
 import fcms.crptrls.i9930.croptrailsfcms.Map.ShowArea.Model.GetGpsCoordinates;
 import fcms.crptrls.i9930.croptrailsfcms.Map.VerifyArea.VerifyAreaModel.VerifySendData;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.StatusMsgModel.StatusMsgModel;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -1056,8 +1057,8 @@ public class ShowAreaOnMapActivity extends FragmentActivity implements OnMapRead
 
             ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
             AddVisitSendData addVisitSendData=new AddVisitSendData();
-            addVisitSendData.setComp_id(2);
-            addVisitSendData.setFarm_id(2);
+            addVisitSendData.setComp_id(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID)));
+            addVisitSendData.setFarm_id(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID)));
             Call<GetGpsCoordinates> getGpsCoordinatesCall=apiService.getGpsCoordinates(addVisitSendData);
             getGpsCoordinatesCall.enqueue(new Callback<GetGpsCoordinates>(){
 

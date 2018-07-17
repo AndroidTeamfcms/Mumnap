@@ -28,6 +28,7 @@ import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsActivity
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmResult;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 
 /**
  * Created by hp on 03-07-2018.
@@ -142,6 +143,7 @@ public class FarmDetailAdapter extends RecyclerView.Adapter<FarmDetailAdapter.Vi
                     int position=getAdapterPosition();
                     final FetchFarmResult fetchFarmResult = fetchFarmResultsFiltered.get(position);
                     DataHandler.newInstance().setFetchFarmResult(fetchFarmResult);
+                    SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVFARMID,fetchFarmResult.getFarmId());
                     Log.e("TAG",fetchFarmResult.getName());
                     Intent intent = new Intent(context, FarmDetailsActivity.class);
                    // DataHandler.newInstance().setFarmnum(farmers.getFarmnum());

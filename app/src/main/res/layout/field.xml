@@ -23,4 +23,7 @@
         android:layout_weight="1"
         android:background="@android:drawable/ic_delete"
         android:onClick="onDelete"/>
+
+
+
 </LinearLayout>

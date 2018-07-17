@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -28,20 +30,35 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import fcms.crptrls.i9930.croptrailsfcms.DataHandler.DataHandler;
+import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.FarmFragment;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.FarmerFragment;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.ProfileFragment;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmData;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmSendData;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitData;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitDataAndStatus;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Login.LoginActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Map.ShowArea.ShowAreaOnMapActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.Map.VerifyArea.MapsActivity;
 import fcms.crptrls.i9930.croptrailsfcms.TestFolder.DynamicButtonAdd_demo.TestForAddViewActivity;
+import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FarmFragment.OnFragmentInteractionListener, FarmerFragment.OnFragmentInteractionListener
@@ -52,6 +69,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     Context context;
     Boolean exit = false;
     ProgressBar progressBar;
+    RelativeLayout rel_landing_id;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -104,7 +122,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_landing);
         context = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        rel_landing_id=(RelativeLayout)findViewById(R.id.rel_landing_id);
         setSupportActionBar(toolbar);
+
+        FetchUnitAsync fetchUnitAsync=new FetchUnitAsync();
+        fetchUnitAsync.execute();
 
 
 
@@ -350,6 +372,56 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+
+    class FetchUnitAsync extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
+            UnitSendData unitSendData=new UnitSendData();
+            unitSendData.setComp_id(Integer.parseInt(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID)));
+            Call<UnitDataAndStatus> unitDataAndStatusCall=apiService.getUnitData(unitSendData);
+
+            unitDataAndStatusCall.enqueue(new Callback<UnitDataAndStatus>() {
+                @Override
+                public void onResponse(Call<UnitDataAndStatus> call, Response<UnitDataAndStatus> response) {
+                    Snackbar snackbar = Snackbar
+                            .make(rel_landing_id, "Welcome to AndroidHive", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                if(response!=null){
+                    UnitDataAndStatus unitDataAndStatus=response.body();
+
+                    if(unitDataAndStatus.getStatus()!=0) {
+                        List<UnitData> unitDataList = unitDataAndStatus.getData();
+
+                        Set<String> stringSet = new HashSet<String>();
+
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < unitDataList.size(); i++) {
+                            //SharedPreferencesMethod.setS
+                            stringSet.add(unitDataList.get(i).getUnit());
+                            //Log.e("Units",unitDataList.get(i).getUnit());
+                        }
+
+
+                        SharedPreferencesMethod.setStringSharedPreferencehistory(context, SharedPreferencesMethod.UNITS, stringSet);
+                        Log.e("SHARED", SharedPreferencesMethod.getStringSharedPreferenceshistory(context, SharedPreferencesMethod.UNITS).toString());
+
+                    }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UnitDataAndStatus> call, Throwable t) {
+
+                }
+            });
+
+            return null;
+        }
     }
 
 
