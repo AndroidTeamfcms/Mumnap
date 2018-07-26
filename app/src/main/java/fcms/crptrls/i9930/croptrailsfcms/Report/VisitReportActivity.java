@@ -5,6 +5,8 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -19,7 +21,7 @@ import fcms.crptrls.i9930.croptrailsfcms.R;
 import fcms.crptrls.i9930.croptrailsfcms.Report.Model.ViewFarmResult;
 
 public class VisitReportActivity extends AppCompatActivity {
-
+    Toolbar mActionBarToolbar;
     TextView Other2,Thinning2,SML2,CPC2,IPMMaterial2,IPMQuantity2,IPMDate2,
             IWMQuantity2,IWMMaterial2,IWMDate2,INMQuantity2,INMMaterial2,
             INMDate2,Other1,SML1,CPC1,IPMQuantity1,IPMMaterial1,IPMDate1,
@@ -37,6 +39,11 @@ public class VisitReportActivity extends AppCompatActivity {
     };
     List<ViewFarmResult> viewFarmResults;
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Window window = this.getWindow();
@@ -47,6 +54,18 @@ public class VisitReportActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_report);
+
+
+        TextView title = (TextView) findViewById(R.id.tittle);
+        title.setText("Farm Visit Report");
+        mActionBarToolbar = (Toolbar) findViewById(R.id.confirm_order_toolbar_layout);
+        setSupportActionBar(mActionBarToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
 
         IPMDate1=(TextView)findViewById(R.id.IPMDate1);
         IPMMaterial1=(TextView)findViewById(R.id.IPMMaterial1);
@@ -224,13 +243,13 @@ public class VisitReportActivity extends AppCompatActivity {
 
             //other
             if(isPrescribed.equals("Y")&&activityName.equals("Other")) {
-                Object mName1=viewFarmResults.get(j).getMaterialName();
+                Object mName1=viewFarmResults.get(j).getComment();
                 String material_Name=String.valueOf(mName1);
                 Other2.setText(material_Name);
             }
             else if(isPrescribed.equals("N")&&activityName.equals("Other"))
             {
-                Object mName1=viewFarmResults.get(j).getMaterialName();
+                Object mName1=viewFarmResults.get(j).getComment();
                 String material_Name=String.valueOf(mName1);
                 Other1.setText(material_Name);
 

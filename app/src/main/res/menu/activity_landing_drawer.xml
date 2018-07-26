@@ -14,7 +14,7 @@
             android:title="Seven Days Activity" />-->
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_open_in_new_yell_green_mix_24dp"
             android:title="Check Area" />
       <!--  <item
             android:id="@+id/nav_manage"
@@ -23,24 +23,23 @@
 
         <item
             android:id="@+id/nav_expense"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_attach_money_yell_and_green_24dp"
             android:title="Expenditure" />
     </group>
 
     <item android:title="Communicate">
         <menu>
-            <item
+          <!--  <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Show Farm Area" />
-
+                android:title="Germination" />-->
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_exit_to_app_dark_yel_and_green_24dp"
                 android:title="Logout" />
         </menu>
     </item>

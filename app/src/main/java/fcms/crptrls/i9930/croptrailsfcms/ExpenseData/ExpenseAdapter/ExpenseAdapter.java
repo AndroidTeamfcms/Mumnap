@@ -44,25 +44,29 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         Datum datum = expenseData.get(position);
 
 
-        holder.date.setText(datum.getExpDate());
-        holder.comment.setText(datum.getComment());
-        holder.amount.setText(datum.getAmount());
+        if(datum.getExpDate()!=null) {
+            holder.date.setText(datum.getExpDate());
+        }
+        if(datum.getComment()!=null) {
+            holder.comment.setText(datum.getComment());
+        }
+        if(datum.getAmount()!=null) {
+            holder.amount.setText(datum.getAmount());
+        }
 
         //String img_url=datum.getImgUrl();
 
-        if(datum.getImgUrl()!=null) {
-            if (datum.getImgUrl().equals("null")||datum.getImgUrl().equals("")) {
-                holder.expense_image.setImageDrawable(context.getResources().getDrawable(R.drawable.cloud));
-            } else {
 
+            if (datum.getImgUrl()!=null) {
                 Uri uriprofile = Uri.parse(datum.getImgUrl());
                 //Picasso.with(context).load(uriprofile).into(holder.expense_image);
                 RequestOptions options = new RequestOptions()
                         .placeholder(R.drawable.cloud)
                         .error(R.drawable.leaf);
                 Glide.with(context).load(uriprofile).apply(options).into(holder.expense_image);
+            } else {
+                holder.expense_image.setImageDrawable(context.getResources().getDrawable(R.drawable.cloud));
             }
-        }
 
        /* if (farm_images.getTaskTitle() != null) {
             holder.tvtitle.setText(farm_images.getTaskTitle());

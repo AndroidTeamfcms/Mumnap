@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,8 @@ import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.sql.Types.NULL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -201,6 +204,7 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
             ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
             FetchFarmSendData fetchFarmSendData=new FetchFarmSendData();
 
+            Log.e("Comp and cluster id",comp_id+"  "+cluster_id);
             fetchFarmSendData.setComp_id(comp_id);
             fetchFarmSendData.setCluster_id(cluster_id);
             Call<FetchFarmData> fetchFarmDataCall=apiService.fetchFarmDatafncn(fetchFarmSendData);
@@ -213,8 +217,11 @@ public class FarmFragment extends Fragment implements FarmDetailAdapter.FarmDeta
                         if (response != null) {
                             FetchFarmData fetchFarmData = response.body();
 
+                            //Toast.makeText(context, fetchFarmData.getMsg(), Toast.LENGTH_SHORT).show();
                             if(fetchFarmData.getStatus()!=0) {
                                  fetchFarmResultList = fetchFarmData.getResult();
+
+
                                 //Toast.makeText(context, fetchFarmData.getMsg(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.INVISIBLE);
                                 farmDetailAdapter = new FarmDetailAdapter(context, fetchFarmResultList);

@@ -1,10 +1,7 @@
 package fcms.crptrls.i9930.croptrailsfcms.Landing.FarmDetailAdapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Movie;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,20 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fcms.crptrls.i9930.croptrailsfcms.DataHandler.DataHandler;
-import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseModel.Datum;
-import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsActivity;
-import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
+import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmFullDetailPage.FarmDetailsActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Models.FetchFarmResult;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;

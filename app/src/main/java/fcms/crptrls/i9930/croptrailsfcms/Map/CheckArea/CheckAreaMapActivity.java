@@ -94,7 +94,7 @@ public class CheckAreaMapActivity extends FragmentActivity implements OnMapReady
     Button butt_clear;
         String mprovider;
         Location location;
-        Button next_butt;
+       // Button next_butt;
         ProgressBar progressBar;
         Boolean can_add=true;
 
@@ -132,9 +132,9 @@ public class CheckAreaMapActivity extends FragmentActivity implements OnMapReady
         tvarea=(TextView)findViewById(R.id.area_tv);
         submit=(Button)findViewById(R.id.submit_butt);
         butt_clear=(Button)findViewById(R.id.clear_butt);
-        next_butt=(Button)findViewById(R.id.next_butt);
+  //      next_butt=(Button)findViewById(R.id.next_butt);
 
-        next_butt.setEnabled(false);
+//        next_butt.setEnabled(false);
 
 
         latPoints=new Double[14];
@@ -146,7 +146,7 @@ public class CheckAreaMapActivity extends FragmentActivity implements OnMapReady
                 if(i>2){
                     //onclick=true;
                     submit_area();
-                    next_butt.setEnabled(true);
+                   // next_butt.setEnabled(true);
                     can_add=false;
                     // submit.setEnabled(false);
                 }else{
@@ -155,21 +155,21 @@ public class CheckAreaMapActivity extends FragmentActivity implements OnMapReady
             }
         });
 
-        next_butt.setOnClickListener(new View.OnClickListener() {
+       /* next_butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 AsyncTaskRunner asyncTaskRunner=new AsyncTaskRunner();
                 asyncTaskRunner.execute();
             }
-        });
+        });*/
         butt_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i>0) {
                     tvarea.setText("0");
                     remove("marker" + (i - 1));
-                    next_butt.setEnabled(false);
+                   // next_butt.setEnabled(false);
                     can_add=true;
                     i--;
                 }

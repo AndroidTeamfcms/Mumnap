@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsActivity">
+    android:id="@+id/rel_add_visit_full_lay"
+    tools:context="fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmFullDetailPage.FarmDetailsActivity">
 
     <include
         android:id="@+id/toolbar_actionbar"
@@ -25,6 +26,7 @@
 
 
     <ScrollView
+        android:id="@+id/scroll_view_farm_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_actionbar">
@@ -142,28 +144,43 @@
 
 
 
-
-
-
-            <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_below="@id/farmer_and_farm_info_rel"
-                android:id="@+id/verify_farm_area_and_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/line"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_white_24dp"
-                android:padding="20dp"
-                android:singleLine="true"
-                android:text="Verify Area and Farm details"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:edittextfont="ROBOTO-REGULAR.TTF" />
+                android:id="@+id/rel_show_or_verify_farm_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
+                    android:id="@+id/verify_farm_area_and_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line"
+                    android:padding="20dp"
+                    android:singleLine="true"
+                    android:text="Verify Area and Farm details"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:edittextfont="ROBOTO-REGULAR.TTF" />
+                <ImageView
+                    android:layout_marginRight="@dimen/_17sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/down_arrow_img_show_verify_farm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_down_white_24dp"/>
+            </RelativeLayout>
+
+
+
+
 
             <LinearLayout
                 android:visibility="gone"
                 android:orientation="vertical"
-                android:layout_below="@id/verify_farm_area_and_details"
+                android:layout_below="@id/rel_show_or_verify_farm_data"
                 android:id="@+id/show_farm_details"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -489,7 +506,102 @@
                             android:textColor="#000"/>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card8"
+                    android:layout_below="@id/card6">
+                    <LinearLayout
+                        android:padding="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_date_range_new_theme_24dp"
+                            android:layout_weight="6"
+                            android:textSize="@dimen/_12ssp"
+                            android:text="Actual Flowering Date"
+                            android:textColor="#696969"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="start|center_vertical"/>
+
+
+                        <TextView
+                            android:layout_gravity="start"
+                            android:gravity="start"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:hint="Flowering Date"
+                            android:drawableRight="@drawable/ic_mode_edit_black_18dp"
+                            android:id="@+id/add_details_actual_flowering_date"
+                            android:textColor="#000"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card9"
+                    android:layout_below="@id/card6">
+                    <LinearLayout
+                        android:padding="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_date_range_new_theme_24dp"
+                            android:layout_weight="6"
+                            android:textSize="@dimen/_12ssp"
+                            android:text="Actual Harvest Date"
+                            android:textColor="#696969"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="start|center_vertical"/>
+
+                        <TextView
+                            android:layout_gravity="start"
+                            android:gravity="start"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:hint="Harvesting Date"
+                            android:drawableRight="@drawable/ic_mode_edit_black_18dp"
+                            android:id="@+id/add_details_actual_harvest_date"
+                            android:textColor="#000"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
                 <!--end of card7-->
+                <TextView
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14ssp"
+                    android:id="@+id/view_farm_area_on_map"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:background="@drawable/gradient_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View Farm Area"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
@@ -5366,25 +5478,165 @@
 
             </RelativeLayout>-->
 
-            <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
+
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_below="@id/show_farm_details"
-                android:id="@+id/germination_and_spacing_custom_text"
+                android:id="@+id/rel_germi_and_spacing_lay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <fcms.crptrls.i9930.croptrailsfcms.CustomTextView.CustomTextView
+                    android:id="@+id/germi_and_spacing_custom_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line"
+                    android:padding="20dp"
+                    android:singleLine="true"
+                    android:text="Add Germination And Spacing Form"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:edittextfont="ROBOTO-REGULAR.TTF" />
+                <ImageView
+                    android:layout_marginRight="@dimen/_17sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/down_arrow_img_germi_and_spacing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow_down_white_24dp"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_below="@id/rel_germi_and_spacing_lay"
+                android:id="@+id/germi_data_hidden_lay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/line"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_white_24dp"
-                android:padding="20dp"
-                android:singleLine="true"
-                android:text="Germination and Population details"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:edittextfont="ROBOTO-REGULAR.TTF" />
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:padding="@dimen/_10sdp"
+                    android:id="@+id/rel_germination_all_final"
+                    android:layout_width="wrap_content"
+                    android:background="@color/li8_new_theme_back"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:padding="@dimen/_5sdp"
+                            android:weightSum="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:text="Average P-P spacing :"
+                                android:layout_weight=".6"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/avg_pp_spacing_tv"
+                                android:layout_width="0dp"
+                                android:text="0"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_weight=".4"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:padding="@dimen/_5sdp"
+                            android:weightSum="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:text="Average R-R spacing :"
+                                android:layout_weight=".6"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/avg_rr_spacing_tv"
+                                android:layout_width="0dp"
+                                android:text="0"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_weight=".4"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:padding="@dimen/_5sdp"
+                            android:weightSum="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:text="Average Germination :"
+                                android:layout_weight=".6"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/avg_germination_tv"
+                                android:layout_width="0dp"
+                                android:text="0"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_weight=".4"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:padding="@dimen/_5sdp"
+                            android:weightSum="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:text="Average farm population :"
+                                android:layout_weight=".6"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/avg_farm_popu_tv"
+                                android:layout_width="0dp"
+                                android:text="0"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_weight=".4"
+                                android:textColor="@color/black"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View Samples"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/white"
+                            android:background="@drawable/gradient_button"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
 
             <RelativeLayout
                 android:layout_marginTop="15dp"
-                android:layout_below="@id/germination_and_spacing_custom_text"
+                android:layout_below="@id/germi_data_hidden_lay"
                 android:id="@+id/rel_show_visits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -5455,6 +5707,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:id="@+id/rel_add_visit_drop"
                 android:layout_below="@id/rel_add_visit"
@@ -5468,8 +5721,93 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
+                    <RelativeLayout
+                        android:padding="@dimen/_10sdp"
+                        android:id="@+id/rel_standing_crop_inst"
+                        android:layout_width="wrap_content"
+                        android:background="@color/li8_new_theme_back"
+                        android:layout_height="wrap_content">
+                        <!--  <View
+                              android:layout_width="match_parent"
+                              android:layout_height="@dimen/_80sdp"
+                              android:background="@color/li8_new_theme_back">
+                          </View>-->
+
+                        <TextView
+                            android:textColor="@color/black"
+                            android:id="@+id/rel_standing_crop_inst_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Step 1: Enter Standing Crop Area"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textSize="@dimen/_13sdp"/>
+                        <TextView
+                            android:id="@+id/rel_standing_crop_instructions"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_below="@id/rel_standing_crop_inst_title"
+                            android:layout_width="wrap_content"
+                            android:textSize="@dimen/_11ssp"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_30sdp"
+                            android:layout_height="wrap_content"
+                            android:text="Please enter crop area in which crop can be seen"
+                            />
+
+                        <ImageView
+                            android:layout_alignParentRight="true"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:alpha=".4"
+                            android:src="@drawable/ic_assignment_turned_in_turqoise_18dp"
+                            />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.CardView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/standing_crop_card"
+                        android:layout_below="@id/card1">
+                        <LinearLayout
+                            android:padding="@dimen/_5sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_date_range_new_theme_24dp"
+                                android:layout_weight="6"
+                                android:textSize="@dimen/_12ssp"
+                                android:text="Standing Crop Area"
+                                android:textColor="#696969"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:layout_gravity="start|center_vertical"
+                                android:gravity="start|center_vertical"/>
+
+                            <EditText
+                                android:layout_gravity="start"
+                                android:gravity="start"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:inputType="numberDecimal"
+                                android:id="@+id/standing_crop_area_et"
+                                android:hint="in acers"
+                                android:textColor="#000"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+
+
+
 
                     <RelativeLayout
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:padding="@dimen/_10sdp"
                         android:id="@+id/rel_seven_dayas_activity_inst"
                         android:layout_width="wrap_content"
@@ -5486,7 +5824,7 @@
                             android:id="@+id/seven_days_activity_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Step 1: Activities done by the Farmer"
+                            android:text="Step 2: Activities done by the Farmer"
                             android:textStyle="bold"
                             android:layout_marginLeft="@dimen/_10sdp"
                             android:textSize="@dimen/_13sdp"/>
@@ -5617,6 +5955,7 @@
                                             android:id="@+id/farmer_inm_quantity"
                                             android:layout_width="0dp"
                                             android:layout_weight=".3"
+                                            android:inputType="numberDecimal"
                                             android:layout_height="wrap_content"
                                             android:hint="Quantity"/>
 
@@ -5735,6 +6074,7 @@
                                             />
 
                                         <EditText
+                                            android:inputType="numberDecimal"
                                             android:id="@+id/farmer_iwm_quantity"
                                             android:layout_width="0dp"
                                             android:layout_weight=".3"
@@ -5861,6 +6201,7 @@
                                             />
 
                                         <EditText
+                                            android:inputType="numberDecimal"
                                             android:id="@+id/farmer_ipm_quantity"
                                             android:layout_width="0dp"
                                             android:layout_weight=".3"
@@ -6174,6 +6515,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="Comment"/>
                                     <EditText
+
                                         android:id="@+id/farmer_other_comment"
                                         android:layout_gravity="center"
                                         android:layout_width="0dp"
@@ -6232,7 +6574,7 @@
                             android:id="@+id/seven_days_prescribed_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Step 2: Prescription issued by Field assistant"
+                            android:text="Step 3: Prescription issued by Field assistant"
                             android:textStyle="bold"
                             android:layout_marginLeft="@dimen/_10sdp"
                             android:textSize="@dimen/_13sdp"/>
@@ -6354,6 +6696,7 @@
                                             />
 
                                         <EditText
+                                            android:inputType="numberDecimal"
                                             android:id="@+id/assistant_inm_quantity"
                                             android:layout_width="0dp"
                                             android:layout_weight=".3"
@@ -6472,6 +6815,7 @@
                                             />
 
                                         <EditText
+                                            android:inputType="numberDecimal"
                                             android:id="@+id/assistant_iwm_quantity"
                                             android:layout_width="0dp"
                                             android:layout_weight=".3"
@@ -6597,6 +6941,7 @@
                                             />
 
                                         <EditText
+                                            android:inputType="numberDecimal"
                                             android:id="@+id/assistant_ipm_quantity"
                                             android:layout_width="0dp"
                                             android:layout_weight=".3"
@@ -7012,11 +7357,92 @@
                 </LinearLayout>
 
 
+//linearLayforImages
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_below="@id/prescribed_full_layout"
+                    android:id="@+id/images_to_upload_lieanr_lay"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_weight=".5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_margin="@dimen/_5sdp"
+                                android:src="@drawable/photo_big"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_weight=".5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_margin="@dimen/_5sdp"
+                                android:src="@drawable/photo_big"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_weight=".5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_margin="@dimen/_5sdp"
+                                android:src="@drawable/photo_big"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_weight=".5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_margin="@dimen/_5sdp"
+                                android:src="@drawable/photo_big"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
                 <TextView
                     android:background="@drawable/gradient_button"
                     android:layout_marginTop="@dimen/_30sdp"
-                    android:layout_below="@id/prescribed_full_layout"
+                    android:layout_below="@id/images_to_upload_lieanr_lay"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/light_text_color"
                     android:id="@+id/act_pres_submit"
@@ -7043,7 +7469,7 @@
                 android:drawableRight="@drawable/ic_keyboard_arrow_right_white_24dp"
                 android:padding="20dp"
                 android:singleLine="true"
-                android:text="Germination and Population details"
+                android:text="Enter Harvesting Details"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:edittextfont="ROBOTO-REGULAR.TTF" />

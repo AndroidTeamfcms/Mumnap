@@ -4,10 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fcms.crptrls.i9930.croptrailsfcms.DatsbaseHandler.DatabaseHandler;
+import fcms.crptrls.i9930.croptrailsfcms.DatsbaseHandler.SaveGpsGetterSetter;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 
 /**
@@ -29,6 +35,11 @@ public class FarmerFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    SaveGpsGetterSetter saveGpsGetterSetter;
+    final List<SaveGpsGetterSetter> saveGpsGetterSetterList=new ArrayList<>();
+
+
 
     public FarmerFragment() {
         // Required empty public constructor
@@ -55,6 +66,31 @@ public class FarmerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DatabaseHandler db = new DatabaseHandler(getContext());
+
+
+        List<SaveGpsGetterSetter> contacts = db.getallgpsCordinates();
+
+        if(contacts!=null) {
+            if(contacts.size()>0) {
+                contacts.get(contacts.size() - 1);
+
+                String log = "Id: " + contacts.get(contacts.size() - 1).getId() + "    Latitude" + contacts.get(contacts.size() - 1).getLati_cord() + " ,Longitude: " + contacts.get(contacts.size() - 1).getLongi_cord() + "   Date" + contacts.get(contacts.size() - 1).getEnter_date();
+
+                Log.e("GpsCordinatesdb:LAST", log);
+
+                for (SaveGpsGetterSetter cn : contacts) {
+                    String logall = "Id: " + cn.getId() + "    Latitude" + cn.getLati_cord() + " ,Longitude: " + cn.getLongi_cord() + "   Date" + cn.getEnter_date();
+                    // Writing Contacts to log
+
+                    saveGpsGetterSetter = new SaveGpsGetterSetter( cn.getLati_cord(), cn.getLongi_cord(),cn.getSv_id(), cn.getEnter_date());
+                    //getprofile.setYear(123);
+                    saveGpsGetterSetterList.add(saveGpsGetterSetter);
+                    Log.e("GpsCordinates in dball ", logall);
+                    //id_count=cn.get_id();
+                }
+            }
+        }
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);

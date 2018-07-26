@@ -10,20 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_below="@id/linear_search_layout"
             android:id="@+id/farm_data_recycler_view"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <LinearLayout
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/linear_search_layout"
             android:weightSum="1"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <EditText
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight=".8"
                 android:id="@+id/search_query_et"
                 android:layout_width="0dp"

@@ -23,6 +23,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -79,6 +81,7 @@ public class ShowAreaOnMapActivity extends FragmentActivity implements OnMapRead
 {
 
     private GoogleMap mMap;
+    Toolbar mActionBarToolbar;
     SupportMapFragment mapFrag;
     LocationRequest mLocationRequest;
     LocationManager locationManager;
@@ -116,6 +119,13 @@ public class ShowAreaOnMapActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_area_on_map);
         context = this;
+
+
+        TextView title = (TextView) findViewById(R.id.tittle);
+        title.setText("View Farm Area");
+        mActionBarToolbar = (Toolbar) findViewById(R.id.confirm_order_toolbar_layout);
+
+
 
         progressBar=(ProgressBar)findViewById(R.id.progressBar_cyclic);
         progressBar.setVisibility(View.VISIBLE);

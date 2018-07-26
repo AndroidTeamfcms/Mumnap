@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import fcms.crptrls.i9930.croptrailsfcms.DatsbaseHandler.DatabaseHandler;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 
 /**
@@ -55,6 +59,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       /* Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = df.format(cal.getTime());
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        db.deleteoldgps_cords(formattedDate);*/
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);

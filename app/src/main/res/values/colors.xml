@@ -10,7 +10,10 @@
     <color name="dark_turqouise">#00ad9f</color>
     <color name="light_turqouise">#7fffff</color>
     <color name="new_theme_dark">#362E3E </color>
-    <color name="new_theme">#2F3C51 </color>
+<!--
+    <color name="new_theme">#6ea300</color>
+-->
+    <color name="new_theme">#2F3C51</color>
     <color name="new_theme_light">#5d77a2</color>
     <color name="new_theme_middle_color">#4a6082</color>
     <color name="light_text_color">#E4EBED</color>
@@ -22,4 +25,10 @@
     <color name="li8_new_theme_back">#bec8da</color>
     <color name="intense_li8_new_theme_back">#eff1f6</color>
     <color name="black">#000000</color>
+
+
+    <color name="yel_gre_mix_dark">#8b9800</color>
+    <color name="yel_gre_mix_primary">#bfc931</color>
+    <color name="yel_gre_mix_light">#f4fc66</color>
+
 </resources>

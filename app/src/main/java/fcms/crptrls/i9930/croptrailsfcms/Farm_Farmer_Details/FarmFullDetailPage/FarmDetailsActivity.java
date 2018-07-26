@@ -1,10 +1,7 @@
-package fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details;
+package fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmFullDetailPage;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,12 +9,14 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,8 +27,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,14 +34,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,7 +53,9 @@ import fcms.crptrls.i9930.croptrailsfcms.DataHandler.DataHandler;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailModel.AddVisitSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
-import fcms.crptrls.i9930.croptrailsfcms.Login.LoginActivity;
+import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmFullDetailPage.model.HarvestAndFloweringSendData;
+import fcms.crptrls.i9930.croptrailsfcms.GerminationAndSpacing.GerminationSpacingActivity;
+import fcms.crptrls.i9930.croptrailsfcms.Landing.LandingActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Map.ShowArea.ShowAreaOnMapActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 import fcms.crptrls.i9930.croptrailsfcms.Report.Model.SendFarmData;
@@ -68,15 +70,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 public class FarmDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    CustomTextView add_visit, verify_farm_area_and_details,show_previous_visits;
+    CustomTextView add_visit, verify_farm_area_and_details,show_previous_visits,germi_and_spacing_custom_text;
     LinearLayout /*rel_update_farm_details*/show_farm_details, rel_add_visit;
     Context context;
     Animation mAnimation;
-    ImageView down_arrow_img,down_arrow_img_show_visits;
+    ImageView down_arrow_img,down_arrow_img_show_visits,down_arrow_img_show_verify_farm;
     Toolbar mActionBarToolbar;
     TextView title_name,title_address;
+    TextView avg_pp_spacing_tv,avg_rr_spacing_tv,avg_germination_tv,avg_farm_popu_tv;
+
+    RelativeLayout rel_add_visit_full_lay;
 
     Spinner farmer_inm_material;
     EditText farmer_inm_quantity;
@@ -99,6 +106,7 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
     Spinner assistant_ipm_material;
     EditText assistant_ipm_quantity;
     Spinner assistant_ipm_unit;
+    ImageView down_arrow_img_germi_and_spacing;
 
     TextView farmer_inm_done_date;
     TextView farmer_iwm_done_date;
@@ -106,6 +114,11 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
     TextView assistant_inm_done_date;
     TextView assistant_iwm_done_date;
     TextView assistant_ipm_done_date;
+    TextView actual_harvest_date;
+    TextView actual_flowering_date;
+
+    EditText standing_crop_area_et;
+    TextView view_farm_area_on_map;
 
     Spinner assistant_cpc_grade;
     Spinner assistant_sml_moisture_level;
@@ -147,9 +160,12 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
     Calendar myCalendarharvesting = Calendar.getInstance();
     TextView tv_actual_flowering_date;
     CardView actual_harvesting_card_view;
-
+    int  visit_count=0;
+    ScrollView scroll_view_farm_details;
+    LinearLayout germi_data_hidden_lay;
 
     String navigateTo = "";
+    String germi_navigate_to="";
 
     TextView add_details_irrigation_source, add_details_previous_crop, add_details_irrigation_type, add_details_soil_type;
     TextView add_details_sowing_date, add_details_exp_harvesting_date, add_details_exp_flowering_date;
@@ -159,6 +175,9 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
     Calendar myCalendarDescinm = Calendar.getInstance();
     Calendar myCalendarDesciwm = Calendar.getInstance();
     Calendar myCalendarDescipm = Calendar.getInstance();
+    Calendar myCalendarAddFarmflowering = Calendar.getInstance();
+    Calendar myCalendarAddFarmHarvest = Calendar.getInstance();
+
 
 
 
@@ -170,31 +189,144 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         farmer_inm_done_date.setText(sdf.format(myCalendarActinm.getTime()));
+        farmer_inm_done_date.setError(null);
+
     }
     private void updateactiwm() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         farmer_iwm_done_date.setText(sdf.format(myCalendarActiwm.getTime()));
+        farmer_iwm_done_date.setError(null);
+
     }
     private void updateactipm() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         farmer_ipm_done_date.setText(sdf.format(myCalendarActipm.getTime()));
+        farmer_ipm_done_date.setError(null);
+
     }
     private void updatedescinm() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         assistant_inm_done_date.setText(sdf.format(myCalendarDescinm.getTime()));
+        assistant_inm_done_date.setError(null);
+
     }
     private void updatedesciwm() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         assistant_iwm_done_date.setText(sdf.format(myCalendarDesciwm.getTime()));
+        assistant_iwm_done_date.setError(null);
+
     }
     private void updatedescipm() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         assistant_ipm_done_date.setText(sdf.format(myCalendarDescipm.getTime()));
+        assistant_ipm_done_date.setError(null);
+    }
+
+    private void update_actual_flowering_date() {
+
+
+
+        //actual_flowering_date.setText(sdf.format(myCalendarAddFarmflowering.getTime()));
+
+
+
+        String submit_format = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat submit_sdf = new SimpleDateFormat(submit_format, Locale.US);
+        String final_submit_actual_flowering_date=submit_sdf.format(myCalendarAddFarmflowering.getTime());
+
+        ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
+        HarvestAndFloweringSendData harvestAndFloweringSendData = new HarvestAndFloweringSendData();
+        harvestAndFloweringSendData.setFarm_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID));
+        harvestAndFloweringSendData.setActual_flowering_date(final_submit_actual_flowering_date);
+        Call<StatusMsgModel> statusMsgModelCall = apiService.getActualFloweringDateStatus(harvestAndFloweringSendData);
+        statusMsgModelCall.enqueue(new Callback<StatusMsgModel>() {
+            @Override
+            public void onResponse(Call<StatusMsgModel> call, Response<StatusMsgModel> response) {
+                StatusMsgModel statusMsgModel=response.body();
+
+                if(statusMsgModel.getStatus()!=0){
+
+                    Toast.makeText(context, "Flowering Date Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, LandingActivity.class);
+                    ActivityOptions options = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        context.startActivity(intent, options.toBundle());
+                        finish();
+                    } else {
+                        startActivity(intent);
+                        finish();
+                    }
+
+                   /* String myFormat = "dd/MM/yyyy"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                    actual_flowering_date.setText(sdf.format(myCalendarAddFarmflowering.getTime()));*/
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatusMsgModel> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+    }
+
+    private void update_actual_harvesting_date() {
+
+
+        String submit_format = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat submit_sdf = new SimpleDateFormat(submit_format, Locale.US);
+        String final_submit_actual_harvesting_date=submit_sdf.format(myCalendarAddFarmHarvest.getTime());
+
+        ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
+        HarvestAndFloweringSendData harvestAndFloweringSendData = new HarvestAndFloweringSendData();
+        harvestAndFloweringSendData.setFarm_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID));
+        harvestAndFloweringSendData.setActual_harvest_date(final_submit_actual_harvesting_date);
+        Call<StatusMsgModel> statusMsgModelCall = apiService.getActualHarvestDateStatus(harvestAndFloweringSendData);
+        statusMsgModelCall.enqueue(new Callback<StatusMsgModel>() {
+            @Override
+            public void onResponse(Call<StatusMsgModel> call, Response<StatusMsgModel> response) {
+                StatusMsgModel statusMsgModel=response.body();
+
+                if(statusMsgModel.getStatus()!=0){
+
+                    Toast.makeText(context, "Harvesting Date Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, LandingActivity.class);
+                    ActivityOptions options = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        context.startActivity(intent, options.toBundle());
+                        finish();
+                    } else {
+                        startActivity(intent);
+                        finish();
+                    }
+
+                   /* String myFormat = "dd/MM/yyyy"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                    actual_flowering_date.setText(sdf.format(myCalendarAddFarmflowering.getTime()));*/
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatusMsgModel> call, Throwable t) {
+
+            }
+        });
+
     }
 
 
@@ -226,8 +358,8 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
 
         String cap = DataHandler.newInstance().getFetchFarmResult().getName().substring(1);
 
-        title_name.setText(firstLetter+cap);
-        title_address.setText(DataHandler.newInstance().getFetchFarmResult().getAddL1()+", "+DataHandler.newInstance().getFetchFarmResult().getAddL2());
+        title_name.setText(DataHandler.newInstance().getFetchFarmResult().getLotNo());
+        title_address.setText(firstLetter+cap);
 
         mActionBarToolbar = (Toolbar) findViewById(R.id.confirm_order_toolbar_layout_for_farm_details);
         setSupportActionBar(mActionBarToolbar);
@@ -244,15 +376,25 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         sowing_details=(CustomTextView)findViewById(R.id.sowing_details_card);*/
         add_visit = (CustomTextView) findViewById(R.id.add_visit);
         verify_farm_area_and_details = (CustomTextView) findViewById(R.id.verify_farm_area_and_details);
+        germi_and_spacing_custom_text=(CustomTextView)findViewById(R.id.germi_and_spacing_custom_text);
         show_previous_visits=(CustomTextView)findViewById(R.id.show_previous_visits);
         /*rel_update_farm_details=(RelativeLayout)findViewById(R.id.detail_full_layout);*/
         show_farm_details = (LinearLayout) findViewById(R.id.show_farm_details);
         rel_add_visit = (LinearLayout) findViewById(R.id.rel_add_visit_drop);
         down_arrow_img = (ImageView) findViewById(R.id.down_arrow_img);
         down_arrow_img_show_visits=(ImageView)findViewById(R.id.down_arrow_img_show_visits);
+        down_arrow_img_show_verify_farm=(ImageView)findViewById(R.id.down_arrow_img_show_verify_farm);
         farm_lot_no = (TextView) findViewById(R.id.farm_lot_no);
 
         dynamic_button = (LinearLayout) findViewById(R.id.dynamic_button);
+        down_arrow_img_germi_and_spacing=(ImageView)findViewById(R.id.down_arrow_img_germi_and_spacing);
+        scroll_view_farm_details=(ScrollView)findViewById(R.id.scroll_view_farm_details);
+
+        rel_add_visit_full_lay=(RelativeLayout)findViewById(R.id.rel_add_visit_full_lay);
+         avg_pp_spacing_tv=(TextView)findViewById(R.id.avg_pp_spacing_tv);
+         avg_rr_spacing_tv=(TextView)findViewById(R.id.avg_rr_spacing_tv);
+         avg_germination_tv=(TextView)findViewById(R.id.avg_germination_tv);
+         avg_farm_popu_tv=(TextView)findViewById(R.id.avg_farm_popu_tv);
 
 
         farmer_inm_material = (Spinner) findViewById(R.id.farmer_inm_material);
@@ -274,12 +416,18 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         assistant_iwm_quantity = findViewById(R.id.assistant_iwm_quantity);
         assistant_iwm_unit = (Spinner) findViewById(R.id.assistant_iwm_unit);
 
+        standing_crop_area_et=(EditText)findViewById(R.id.standing_crop_area_et);
+
         farmer_inm_done_date = (TextView) findViewById(R.id.farmer_inm_done_date);
         farmer_iwm_done_date = (TextView) findViewById(R.id.farmer_iwm_done_date);
         farmer_ipm_done_date = (TextView) findViewById(R.id.farmer_ipm_done_date);
         assistant_inm_done_date = (TextView)findViewById(R.id.assistant_inm_done_date);
         assistant_iwm_done_date = (TextView) findViewById(R.id.assistant_iwm_done_date);
         assistant_ipm_done_date = (TextView) findViewById(R.id.assistant_ipm_done_date);
+        actual_harvest_date=(TextView)findViewById(R.id.add_details_actual_harvest_date);
+        actual_flowering_date=(TextView)findViewById(R.id.add_details_actual_flowering_date);
+
+        view_farm_area_on_map=(TextView)findViewById(R.id.view_farm_area_on_map);
 
         assistant_ipm_material = (Spinner) findViewById(R.id.assistant_ipm_material);
         assistant_ipm_quantity = (EditText) findViewById(R.id.assistant_ipm_quantity);
@@ -299,9 +447,12 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         add_details_exp_harvesting_date = (TextView) findViewById(R.id.add_details_expHarvestDate);
         actual_flowering_card_view = (CardView) findViewById(R.id.actual_flowering_card_view);
         actual_harvesting_card_view = (CardView) findViewById(R.id.actual_harvesting_card_view);
+        germi_data_hidden_lay=(LinearLayout)findViewById(R.id.germi_data_hidden_lay);
 
 
-        farm_lot_no.setText(DataHandler.newInstance().getFetchFarmResult().getLotNo());
+        if(DataHandler.newInstance().getFetchFarmResult().getLotNo()!=null) {
+            farm_lot_no.setText(DataHandler.newInstance().getFetchFarmResult().getLotNo());
+        }
 
         visit_submit = (TextView) findViewById(R.id.act_pres_submit);
 
@@ -309,6 +460,7 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         params1 = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
+
 
 
         final DatePickerDialog.OnDateSetListener dateactinm = new DatePickerDialog.OnDateSetListener() {
@@ -358,7 +510,7 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
                 myCalendarDesciwm.set(Calendar.YEAR, year);
                 myCalendarDesciwm.set(Calendar.MONTH, monthOfYear);
                 myCalendarDesciwm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateactiwm();
+                updatedesciwm();
             }
         };
 
@@ -368,7 +520,49 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
                 myCalendarDescipm.set(Calendar.YEAR, year);
                 myCalendarDescipm.set(Calendar.MONTH, monthOfYear);
                 myCalendarDescipm.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateactipm();
+                updatedescipm();
+            }
+        };
+
+        final DatePickerDialog.OnDateSetListener add_details_farm_flowering = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarAddFarmflowering.set(Calendar.YEAR, year);
+                myCalendarAddFarmflowering.set(Calendar.MONTH, monthOfYear);
+                myCalendarAddFarmflowering.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+
+                new AlertDialog.Builder(context)
+                        .setMessage("Are you sure you want to enter Actual Flowering Date ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                update_actual_flowering_date();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+            }
+        };
+
+        final DatePickerDialog.OnDateSetListener add_details_farm_harvesting = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendarAddFarmHarvest.set(Calendar.YEAR, year);
+                myCalendarAddFarmHarvest.set(Calendar.MONTH, monthOfYear);
+                myCalendarAddFarmHarvest.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                new AlertDialog.Builder(context)
+                        .setMessage("Are you sure you want to enter Actual Harvesting Date ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                update_actual_harvesting_date();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         };
 
@@ -427,11 +621,44 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        actual_flowering_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, add_details_farm_flowering, myCalendarAddFarmflowering
+                        .get(Calendar.YEAR), myCalendarAddFarmflowering.get(Calendar.MONTH),
+                        myCalendarAddFarmflowering.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        actual_harvest_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(FarmDetailsActivity.this, add_details_farm_harvesting, myCalendarAddFarmHarvest
+                        .get(Calendar.YEAR), myCalendarAddFarmHarvest.get(Calendar.MONTH),
+                        myCalendarAddFarmHarvest.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
 
 
-        String actual_area = DataHandler.newInstance().getFetchFarmResult().getActualArea().toString();
-        String soil_type = DataHandler.newInstance().getFetchFarmResult().getSoilType().toString();
+
+
+
+
+
+
+        String actual_area="";
+        String soil_type = "";
+        String avg_germination="";
+        if(DataHandler.newInstance().getFetchFarmResult().getSoilType()!=null) {
+            soil_type = DataHandler.newInstance().getFetchFarmResult().getSoilType().toString();
+        }
+        if(DataHandler.newInstance().getFetchFarmResult().getActualArea()!=null){
+            actual_area=DataHandler.newInstance().getFetchFarmResult().getActualArea().toString();
+        }
+        if(DataHandler.newInstance().getFetchFarmResult().getGermination()!=null){
+            avg_germination=DataHandler.newInstance().getFetchFarmResult().getGermination().toString();
+        }
 
         if ((!actual_area.trim().equals("0")) && (!soil_type.trim().equals(""))) {
             verify_farm_area_and_details.setText("View Farm Details");
@@ -443,14 +670,92 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
             add_details_sowing_date.setText(DataHandler.newInstance().getFetchFarmResult().getSowingDate().toString());
             add_details_exp_flowering_date.setText(DataHandler.newInstance().getFetchFarmResult().getExpFloweringDate().toString());
             add_details_exp_harvesting_date.setText(DataHandler.newInstance().getFetchFarmResult().getExpHarvestDate().toString());
+            if(!DataHandler.newInstance().getFetchFarmResult().getActualFloweringDate().toString().matches("0000-01-01")){
+                actual_flowering_date.setText(DataHandler.newInstance().getFetchFarmResult().getActualFloweringDate().toString());
+                actual_flowering_date.setCompoundDrawables(null,null,null,null);
+                actual_flowering_date.setClickable(false);
+            }
+            if(!DataHandler.newInstance().getFetchFarmResult().getActualHarvestDate().toString().matches("0000-01-01")){
+                actual_harvest_date.setText(DataHandler.newInstance().getFetchFarmResult().getActualHarvestDate().toString());
+                actual_harvest_date.setCompoundDrawables(null,null,null,null);
+                actual_harvest_date.setClickable(false);
+            }
+
+            view_farm_area_on_map.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ShowAreaOnMapActivity.class);
+                    ActivityOptions options = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        context.startActivity(intent, options.toBundle());
+                        //finish();
+                    } else {
+                        startActivity(intent);
+                        //finish();
+                    }
+                }
+            });
+
         } else {
-            if (actual_area.trim().equals("0")) {
+            if (actual_area.trim().equals("0") ) {
                 navigateTo = "map";
+                RotateAnimation rotateAnimation = new RotateAnimation(0.0f, 270.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillAfter(true);
+                down_arrow_img_show_verify_farm.startAnimation(rotateAnimation);
             } else {
                 verify_farm_area_and_details.setText("Verify Farm Details");
                 navigateTo = "verify_details";
+                RotateAnimation rotateAnimation = new RotateAnimation(0.0f, 270.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillAfter(true);
+                down_arrow_img_show_verify_farm.startAnimation(rotateAnimation);
             }
         }
+
+
+
+            if (avg_germination.equals("")) {
+                germi_navigate_to = "add_form";
+                RotateAnimation rotateAnimation = new RotateAnimation(0.0f, 270.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillAfter(true);
+                down_arrow_img_germi_and_spacing.startAnimation(rotateAnimation);
+
+            } else {
+                if (DataHandler.newInstance().getFetchFarmResult().getSpacingPtp() != NULL) {
+                    avg_pp_spacing_tv.setText(DataHandler.newInstance().getFetchFarmResult().getSpacingPtp().toString());
+                }
+                if (DataHandler.newInstance().getFetchFarmResult().getSpacingRtr() != NULL) {
+                    avg_rr_spacing_tv.setText(DataHandler.newInstance().getFetchFarmResult().getSpacingRtr().toString());
+                }
+                if (DataHandler.newInstance().getFetchFarmResult().getPopulation() != NULL) {
+                    avg_farm_popu_tv.setText(String.valueOf(DataHandler.newInstance().getFetchFarmResult().getPopulation().toString()));
+                }
+                if (DataHandler.newInstance().getFetchFarmResult().getGermination() != NULL) {
+                    avg_germination_tv.setText(String.valueOf(DataHandler.newInstance().getFetchFarmResult().getGermination().toString()));
+                }
+
+                germi_navigate_to = "view_germi_form";
+                germi_and_spacing_custom_text.setText("View Germination and Spacing Form");
+            }
+
+
+
+
+
+
+
+
 
 
         progressBar_cyclic.setVisibility(View.VISIBLE);
@@ -671,8 +976,212 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
                 }
 
 
-                MyAsyncTask myAsyncTask = new MyAsyncTask();
-                myAsyncTask.execute();
+
+                if(TextUtils.isEmpty(standing_crop_area_et.getText().toString().trim())){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill Standing Crop Area",Snackbar.LENGTH_LONG);
+                    standing_crop_area_et.getParent().requestChildFocus(standing_crop_area_et,standing_crop_area_et);
+                    standing_crop_area_et.setError("Standing crop area can't be null");
+                    snackbar.show();
+                }
+                else if(farmer_inm_material.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer INM material",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                   /* scroll_view_farm_details.smoothScrollTo(0,farmer_inm_material.getTop());
+                    farmer_inm_material.requestFocus();*/
+                    TextView errorText = (TextView)farmer_inm_material.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    farmer_inm_material.getParent().requestChildFocus(farmer_inm_quantity,farmer_inm_quantity);
+                }
+                else if(TextUtils.isEmpty(farmer_inm_quantity.getText().toString().trim()))
+                {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer INM quantity",Snackbar.LENGTH_LONG);
+
+                    farmer_inm_quantity.setError("Enter inm quantity");
+                    farmer_inm_quantity.getParent().requestChildFocus(farmer_inm_quantity,farmer_inm_quantity);
+
+                   /* scroll_view_farm_details.smoothScrollTo(0,farmer_inm_quantity.getTop());
+                    farmer_inm_quantity.requestFocus();*/
+                    snackbar.show();
+                }
+                else if(farmer_inm_done_date.getText().toString().matches("")){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer INM done date",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    farmer_inm_done_date.setError("Enter Date");
+                    farmer_inm_done_date.getParent().requestChildFocus(farmer_inm_done_date,farmer_inm_done_date);
+
+                }
+                else if(farmer_iwm_material.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer IWM material",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)farmer_iwm_material.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    farmer_iwm_material.getParent().requestChildFocus(farmer_iwm_material,farmer_iwm_material);
+                }
+                else if(TextUtils.isEmpty(farmer_iwm_quantity.getText().toString().trim())){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer IWM quantity",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    farmer_iwm_quantity.setError("Enter iwm quantity");
+                    farmer_iwm_quantity.getParent().requestChildFocus(farmer_iwm_quantity,farmer_iwm_quantity);
+                }
+                else if(farmer_iwm_done_date.getText().toString().matches("")){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer IWM done date",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    farmer_iwm_done_date.setError("Enter Date");
+                    farmer_iwm_done_date.getParent().requestChildFocus(farmer_iwm_done_date,farmer_iwm_done_date);
+
+                }
+                else if(farmer_ipm_material.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer IPM material",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)farmer_ipm_material.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    farmer_ipm_material.getParent().requestChildFocus(farmer_ipm_material,farmer_ipm_material);
+                }
+                else if(TextUtils.isEmpty(farmer_ipm_quantity.getText().toString().trim())){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer IPM quantity",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    farmer_ipm_quantity.setError("Enter ipm quantity");
+                    farmer_ipm_quantity.getParent().requestChildFocus(farmer_ipm_quantity,farmer_ipm_quantity);
+
+                }
+                else if(farmer_ipm_done_date.getText().toString().matches("")){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer IPM done date",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    farmer_ipm_done_date.setError("Enter Date");
+                    farmer_ipm_done_date.getParent().requestChildFocus(farmer_ipm_done_date,farmer_ipm_done_date);
+
+                }
+                else if(farmer_cpc_grade.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer CPC grade",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)farmer_cpc_grade.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    farmer_cpc_grade.getParent().requestChildFocus(farmer_cpc_grade,farmer_cpc_grade);
+                }
+                else if(farmer_sml_moisture_level.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in farmer SML level",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)farmer_sml_moisture_level.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    farmer_sml_moisture_level.getParent().requestChildFocus(farmer_sml_moisture_level,farmer_sml_moisture_level);
+                }
+                else if(assistant_inm_material.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant INM material",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)assistant_inm_material.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    assistant_inm_material.getParent().requestChildFocus(assistant_inm_material,assistant_inm_material);
+                }
+                else if(TextUtils.isEmpty(assistant_inm_quantity.getText().toString().trim())){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant INM quantity",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    assistant_inm_quantity.setError("Enter Prescribed inm quantity");
+                    assistant_inm_quantity.getParent().requestChildFocus(assistant_inm_quantity,assistant_inm_quantity);
+
+                }
+                else if(assistant_inm_done_date.getText().toString().matches("")){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant INM done date",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    assistant_inm_done_date.setError("Enter Date");
+                    assistant_inm_done_date.getParent().requestChildFocus(assistant_inm_done_date,assistant_inm_done_date);
+
+                }
+                else if(assistant_iwm_material.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant IWM material",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)assistant_iwm_material.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    assistant_iwm_material.getParent().requestChildFocus(assistant_iwm_material,assistant_iwm_material);
+                }
+                else if(TextUtils.isEmpty(assistant_iwm_quantity.getText().toString().trim())){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant IWM quantity",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    assistant_iwm_quantity.setError("Enter Prescribed iwm quantity");
+                    assistant_iwm_quantity.getParent().requestChildFocus(assistant_iwm_quantity,assistant_iwm_quantity);
+
+                }
+                else if(assistant_iwm_done_date.getText().toString().matches("")){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant IWM done date",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    assistant_iwm_done_date.setError("Enter Date");
+                    assistant_iwm_done_date.getParent().requestChildFocus(assistant_iwm_done_date,assistant_iwm_done_date);
+
+                }
+                else if(assistant_ipm_material.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant IPM material",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)assistant_ipm_material.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    assistant_ipm_material.getParent().requestChildFocus(assistant_ipm_material,assistant_ipm_material);
+
+                }
+
+                else if(TextUtils.isEmpty(assistant_ipm_quantity.getText().toString().trim())){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant IPM quantity",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    assistant_ipm_quantity.setError("Enter Prescribed ipm quantity");
+                    assistant_ipm_quantity.getParent().requestChildFocus(assistant_ipm_quantity,assistant_ipm_quantity);
+                }
+                else if(assistant_ipm_done_date.getText().toString().matches("")){
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant IPM done date",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    assistant_ipm_done_date.setError("Enter Date");
+                    assistant_ipm_done_date.getParent().requestChildFocus(assistant_ipm_done_date,assistant_ipm_done_date);
+
+                }
+                else if(assistant_cpc_grade.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant CPC grade",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)assistant_cpc_grade.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    assistant_cpc_grade.getParent().requestChildFocus(assistant_cpc_grade,assistant_cpc_grade);
+
+                }
+                else if(assistant_sml_moisture_level.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant SML moisture level", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)assistant_sml_moisture_level.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    assistant_sml_moisture_level.getParent().requestChildFocus(assistant_sml_moisture_level,assistant_sml_moisture_level);
+
+                }
+                else if(assistant_thining_moisture_level.getSelectedItem().toString().equals("Select")) {
+                    Snackbar snackbar=Snackbar.make(rel_add_visit_full_lay,"Please fill in assistant thinning moisture level",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    TextView errorText = (TextView)assistant_thining_moisture_level.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("");
+                    assistant_thining_moisture_level.getParent().requestChildFocus(assistant_thining_moisture_level,assistant_thining_moisture_level);
+
+                }
+                else {
+                    MyAsyncTask myAsyncTask = new MyAsyncTask();
+                    myAsyncTask.execute();
+                }
+
+
+
             }
         });
 
@@ -704,6 +1213,37 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         });
 
 
+        germi_and_spacing_custom_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String actual_area="0";
+if(DataHandler.newInstance().getFetchFarmResult().getActualArea()!=null){
+    actual_area=DataHandler.newInstance().getFetchFarmResult().getActualArea().toString();
+}
+                if(!actual_area.equals("0")) {
+
+                    if (germi_navigate_to.equals("add_form")) {
+                        Intent intent = new Intent(context, GerminationSpacingActivity.class);
+                        ActivityOptions options = null;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                        }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            context.startActivity(intent, options.toBundle());
+                        } else {
+                            startActivity(intent);
+                        }
+                    } else {
+                        animate(germi_data_hidden_lay, "show_germi_farm");
+
+                    }
+                }else{
+                    Toast.makeText(context, "Please Verify farm area first", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         show_previous_visits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -716,6 +1256,7 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
             public void onClick(View v) {
 
                 if (navigateTo.equals("map")) {
+
 
                     Intent intent = new Intent(context, MapsActivity.class);
                     ActivityOptions options = null;
@@ -730,6 +1271,8 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
 
 
                 } else if (navigateTo.equals("verify_details")) {
+
+
 
                     Intent intent = new Intent(context, FarmDetailsUpdateActivity.class);
                     ActivityOptions options = null;
@@ -797,6 +1340,14 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
         } else if(from_where.equals("farm_details")) {
             if (linearLayout.getVisibility() == View.GONE) {
 
+                RotateAnimation rotateAnimation = new RotateAnimation(0.0f, 180.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillAfter(true);
+                down_arrow_img_show_verify_farm.startAnimation(rotateAnimation);
+
+
                 linearLayout.setVisibility(LinearLayout.VISIBLE);
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
                 animation.setDuration(500);
@@ -804,6 +1355,53 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
                 linearLayout.animate();
                 animation.start();
             } else {
+                RotateAnimation rotateAnimation = new RotateAnimation(180.0f, 0.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillAfter(true);
+                down_arrow_img_show_verify_farm.startAnimation(rotateAnimation);
+
+
+                linearLayout.setVisibility(LinearLayout.INVISIBLE);
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+                animation.setDuration(500);
+                linearLayout.setAnimation(animation);
+                linearLayout.animate();
+                animation.start();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        linearLayout.setVisibility(LinearLayout.GONE);
+                    }
+                }, 400);
+            }
+        } else if(from_where.equals("show_germi_farm")) {
+            if (linearLayout.getVisibility() == View.GONE) {
+
+                RotateAnimation rotateAnimation = new RotateAnimation(0.0f, 180.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillAfter(true);
+                down_arrow_img_germi_and_spacing.startAnimation(rotateAnimation);
+
+
+                linearLayout.setVisibility(LinearLayout.VISIBLE);
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+                animation.setDuration(500);
+                linearLayout.setAnimation(animation);
+                linearLayout.animate();
+                animation.start();
+            } else {
+                RotateAnimation rotateAnimation = new RotateAnimation(180.0f, 0.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setRepeatCount(0);
+                rotateAnimation.setDuration(500);
+                rotateAnimation.setFillAfter(true);
+                down_arrow_img_germi_and_spacing.startAnimation(rotateAnimation);
+
 
                 linearLayout.setVisibility(LinearLayout.INVISIBLE);
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
@@ -834,6 +1432,7 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
                 linearLayout.setVisibility(LinearLayout.VISIBLE);
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
                 animation.setDuration(1000);
+                animation.setFillAfter(false);
                 linearLayout.setAnimation(animation);
                 linearLayout.animate();
                 animation.start();
@@ -848,6 +1447,7 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
                 linearLayout.setVisibility(LinearLayout.INVISIBLE);
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
                 animation.setDuration(1000);
+                animation.setFillAfter(false);
                 linearLayout.setAnimation(animation);
                 linearLayout.animate();
                 animation.start();
@@ -1067,20 +1667,49 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
 
             };
 
+
+            String submit_format = "yyyy-MM-dd"; //In which you need put here
+            SimpleDateFormat submit_sdf = new SimpleDateFormat(submit_format, Locale.US);
+
+            Date farmer_inm_done_date_slash_format=null,farmer_iwm_done_date_slash_format=null;
+            Date farmer_ipm_done_date_slash_format=null,assistant_inm_done_date_slash_format=null;
+            Date assistant_iwm_done_date_slash_format=null,assistant_ipm_done_date_slash_format=null;
+
+
+            try {
+                farmer_inm_done_date_slash_format=new SimpleDateFormat("dd/MM/yyyy").parse(farmer_inm_done_date.getText().toString().trim());
+                farmer_iwm_done_date_slash_format=new SimpleDateFormat("dd/MM/yyyy").parse(farmer_iwm_done_date.getText().toString().trim());
+                farmer_ipm_done_date_slash_format=new SimpleDateFormat("dd/MM/yyyy").parse(farmer_ipm_done_date.getText().toString().trim());
+                assistant_inm_done_date_slash_format=new SimpleDateFormat("dd/MM/yyyy").parse(assistant_inm_done_date.getText().toString().trim());
+                assistant_iwm_done_date_slash_format=new SimpleDateFormat("dd/MM/yyyy").parse(assistant_iwm_done_date.getText().toString().trim());
+                assistant_ipm_done_date_slash_format=new SimpleDateFormat("dd/MM/yyyy").parse(assistant_ipm_done_date.getText().toString().trim());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            String str_farmer_inm_done_date=submit_sdf.format(farmer_inm_done_date_slash_format);
+            String str_farmer_iwm_done_date=submit_sdf.format(farmer_iwm_done_date_slash_format);
+            String str_farmer_ipm_done_date=submit_sdf.format(farmer_ipm_done_date_slash_format);
+            String str_assistant_inm_done_date=submit_sdf.format(assistant_inm_done_date_slash_format);
+            String str_assistant_iwm_done_date=submit_sdf.format(assistant_iwm_done_date_slash_format);
+            String str_assistant_ipm_done_date=submit_sdf.format(assistant_ipm_done_date_slash_format);
+
+
             done_date_str_arr = new String[]{
-                    farmer_inm_done_date.getText().toString().trim(),
-                    farmer_iwm_done_date.getText().toString().trim(),
-                    farmer_ipm_done_date.getText().toString().trim(),
-                    "0",
-                    "0",
-                    "0",
-                    assistant_inm_done_date.getText().toString().trim(),
-                    assistant_iwm_done_date.getText().toString().trim(),
-                    assistant_ipm_done_date.getText().toString().trim(),
-                    "0",
-                    "0",
-                    "0",
-                    "0"
+                    str_farmer_inm_done_date,
+                    str_farmer_iwm_done_date,
+                    str_farmer_ipm_done_date,
+                    "0000-01-01",
+                    "0000-01-01",
+                    "0000-01-01",
+                    str_assistant_inm_done_date,
+                    str_assistant_iwm_done_date,
+                    str_assistant_ipm_done_date,
+                    "0000-01-01",
+                    "0000-01-01",
+                    "0000-01-01",
+                    "0000-01-01"
             };
 
             //final String[] array5={farmer_cpc_grade.getSelectedItem().toString().trim(),assistant_cpc_grade.getSelectedItem().toString().trim()};
@@ -1110,6 +1739,32 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
             };
 
 
+            Date c = Calendar.getInstance().getTime();
+            System.out.println("Current time => " + c);
+
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = df.format(c);
+
+
+
+            for(int i=0;i<template_int_arr.length;i++) {
+                Log.e("template_array"+i, String.valueOf(template_int_arr[i]));
+                Log.e("comment_str_array"+i, comment_str_arr[i].toString());
+                Log.e("done_date_str_arr"+i, done_date_str_arr[i].toString());
+                Log.e("pres_arr"+i, pres_arr[i].toString());
+                Log.e("quantity_str_arr"+i, quantity_str_arr[i].toString());
+                Log.e("unit_id_int_arr"+i, String.valueOf(unit_id_int_arr[i]));
+                Log.e("material_int_arr"+i, String.valueOf(material_int_arr[i]));
+            }
+            Log.e("formattedDate",formattedDate.toString());
+            Log.e("visit_count",String.valueOf(visit_count));
+            Log.e("comp_id",SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID));
+            Log.e("farm_id",SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID));
+            Log.e("user_id",SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVUSERID));
+            Log.e("effective_area",standing_crop_area_et.getText().toString());
+            Log.e("visit_date",formattedDate);
+
+
             ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
             AddVisitSendData addVisitSendData = new AddVisitSendData();
             addVisitSendData.setActivity_template_id(template_int_arr);
@@ -1121,19 +1776,35 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
             addVisitSendData.setMaterial_id(material_int_arr);
             addVisitSendData.setFarm_id(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID)));
             addVisitSendData.setComp_id(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID)));
-            addVisitSendData.setApproved_method("abc");
-            addVisitSendData.setVisit_date("1996-08-01");
-            addVisitSendData.setVisit_number(2);
-            addVisitSendData.setEffective_area(35);
+            addVisitSendData.setApproved_method("images");
+            addVisitSendData.setVisit_date(formattedDate);
+            addVisitSendData.setVisit_number(visit_count+1);
+            addVisitSendData.setEffective_area(Float.valueOf(standing_crop_area_et.getText().toString().trim()));
             addVisitSendData.setAdded_by(Integer.valueOf(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVUSERID)));
 
             Call<StatusMsgModel> statusMsgModelCall = apiService.getVisitMsgStatus(addVisitSendData);
             statusMsgModelCall.enqueue(new Callback<StatusMsgModel>() {
                 @Override
                 public void onResponse(Call<StatusMsgModel> call, Response<StatusMsgModel> response) {
-                    StatusMsgModel statusMsgModel = response.body();
-                    //Toast.makeText(context, response.body().toString(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(FarmDetailsActivity.this, statusMsgModel.getMsg(), Toast.LENGTH_SHORT).show();
+                    if(response!=null) {
+                        StatusMsgModel statusMsgModel = response.body();
+
+                        if (statusMsgModel.getStatus() != 0) {
+                            //Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, LandingActivity.class);
+                            ActivityOptions options = null;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                            }
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                context.startActivity(intent, options.toBundle());
+                                finish();
+                            } else {
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    }
                 }
 
                 @Override
@@ -1161,29 +1832,44 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
 
             sendFarmData.setFarm_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID));
             sendFarmData.setComp_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID));
-            Call<ViewFarmData> callData = apiService.viewFarmDataFunction(sendFarmData);
-            callData.enqueue(new Callback<ViewFarmData>() {
-                @Override
-                public void onResponse(Call<ViewFarmData> call, Response<ViewFarmData> response) {
-                    ViewFarmData viewFarmData = response.body();
-                    //String status=viewFarmData.getStatus().toString();
 
-                    String msg = viewFarmData.getMsg().toString();
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-                    resultList = viewFarmData.getResult();
-                    int l = resultList.size();
-                    makeButtons(l);
-                    for (int i = 0; i < resultList.size(); i++) {
-                        viewFarmResults = resultList.get(i);
+
+
+                Call<ViewFarmData> callData = apiService.viewFarmDataFunction(sendFarmData);
+                callData.enqueue(new Callback<ViewFarmData>() {
+                    @Override
+                    public void onResponse(Call<ViewFarmData> call, Response<ViewFarmData> response) {
+
+                        try {
+                        ViewFarmData viewFarmData = response.body();
+                        //String status=viewFarmData.getStatus().toString();
+
+                        String msg = viewFarmData.getMsg().toString();
+                       // Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        resultList = viewFarmData.getResult();
+                        int l = resultList.size();
+                        visit_count = resultList.size();
+
+                       // Toast.makeText(context, visit_count + "", Toast.LENGTH_SHORT).show();
+                        makeButtons(l);
+                        for (int i = 0; i < resultList.size(); i++) {
+                            viewFarmResults = resultList.get(i);
+                        }
+
+                        progressBar_cyclic.setVisibility(View.INVISIBLE);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            progressBar_cyclic.setVisibility(View.INVISIBLE);
+                        }
                     }
 
-                    progressBar_cyclic.setVisibility(View.INVISIBLE);
-                }
+                    @Override
+                    public void onFailure(Call<ViewFarmData> call, Throwable t) {
+                        progressBar_cyclic.setVisibility(View.INVISIBLE);
+                    }
 
-                @Override
-                public void onFailure(Call<ViewFarmData> call, Throwable t) {
-                }
-            });
+                });
+
 
             return null;
         }
@@ -1202,12 +1888,19 @@ public class FarmDetailsActivity extends AppCompatActivity implements View.OnCli
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     DataHandler.newInstance().setViewFarmResultList(resultList.get(x));
-                    Intent intent = new Intent(getApplicationContext(), VisitReportActivity.class);
-                    intent.putExtra("visit", y);
-                    startActivity(intent);
+                    Intent intent = new Intent(context, VisitReportActivity.class);
+                    ActivityOptions options = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        context.startActivity(intent, options.toBundle());
+                        //finish();
+                    } else {
+                        startActivity(intent);
+                        //finish();
+                    }
                     //Toast.makeText(FirstPage.this, "Button"+x+"clicked", Toast.LENGTH_SHORT).show();
                 }
             });

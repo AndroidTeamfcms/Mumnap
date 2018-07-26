@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.Model.FarmDetailsUpdateSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.LandingActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.StatusMsgModel.StatusMsgModel;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -43,6 +46,7 @@ public class FarmDetailsUpdateActivity extends AppCompatActivity {
     Calendar myCalendarharvesting = Calendar.getInstance();
     Context context;
     ProgressBar progressBar;
+    RelativeLayout rel_lay_farm_det_update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,7 @@ public class FarmDetailsUpdateActivity extends AppCompatActivity {
         spinner_perv_crop=(Spinner)findViewById(R.id.spinner_previous_crop);
         spinner_soil_type=(Spinner)findViewById(R.id.spinner_soil_type);
         update_farm_details=(TextView)findViewById(R.id.update_farm_details);
+        rel_lay_farm_det_update=(RelativeLayout)findViewById(R.id.rel_lay_farm_det_update);
 
 
         final DatePickerDialog.OnDateSetListener datesowing = new DatePickerDialog.OnDateSetListener() {
@@ -134,16 +139,30 @@ public class FarmDetailsUpdateActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(spinner_irri_source.getSelectedItem().toString().equals("Select")){
-
+                    Snackbar snackbar = Snackbar
+                            .make(rel_lay_farm_det_update, "Please Select Irrigation Source", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }else if(spinner_perv_crop.getSelectedItem().toString().equals("Select")){
-
+                    Snackbar snackbar = Snackbar
+                            .make(rel_lay_farm_det_update, "Please Select Previous Crop", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }else if(spinner_irri_type.getSelectedItem().toString().equals("Select")){
-
+                    Snackbar snackbar = Snackbar
+                            .make(rel_lay_farm_det_update, "Please Select Irrigation Type", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }else if(spinner_soil_type.getSelectedItem().toString().equals("Select")){
-
+                    Snackbar snackbar = Snackbar
+                            .make(rel_lay_farm_det_update, "Please Select Soil Type", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }else if(sowingDateet.getText().toString().trim().matches("")){
+                    Snackbar snackbar = Snackbar
+                            .make(rel_lay_farm_det_update, "Please Choose Sowing Date", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }
-                AsyncTaskRunner asyncTaskRunner=new AsyncTaskRunner();
-                asyncTaskRunner.execute();
+                else {
+                    AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+                    asyncTaskRunner.execute();
+                }
             }
         });
     }
@@ -208,8 +227,8 @@ public class FarmDetailsUpdateActivity extends AppCompatActivity {
 
             ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
             FarmDetailsUpdateSendData farmDetailsUpdateSendData=new FarmDetailsUpdateSendData();
-            farmDetailsUpdateSendData.setComp_id("1");
-            farmDetailsUpdateSendData.setFarm_id("1");
+            farmDetailsUpdateSendData.setComp_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID));
+            farmDetailsUpdateSendData.setFarm_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID));
             farmDetailsUpdateSendData.setExp_flowering_date(str_flowering_date);
             farmDetailsUpdateSendData.setIrrigation_source(spinner_irri_source.getSelectedItem().toString());
             farmDetailsUpdateSendData.setIrrigation_type(spinner_irri_type.getSelectedItem().toString());

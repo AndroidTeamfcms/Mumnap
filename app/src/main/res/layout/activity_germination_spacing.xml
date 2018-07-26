@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:id="@+id/germi_full_layout"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp">
+
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_below="@id/toolbar_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <RelativeLayout
+           android:padding="@dimen/_10sdp"
+           android:id="@+id/rel_germination_instructions"
+           android:layout_width="wrap_content"
+           android:background="@color/li8_new_theme_back"
+           android:layout_height="wrap_content">
+           <!--  <View
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/_80sdp"
+                 android:background="@color/li8_new_theme_back">
+             </View>-->
+
+           <TextView
+               android:textColor="@color/black"
+               android:id="@+id/rel_germination_inst_title"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Enter Germination and spacing details"
+               android:textStyle="bold"
+               android:layout_marginLeft="@dimen/_10sdp"
+               android:textSize="@dimen/_13sdp"/>
+           <TextView
+               android:id="@+id/germination_text_instructions"
+               android:layout_marginTop="@dimen/_5sdp"
+               android:layout_below="@id/rel_germination_inst_title"
+               android:layout_width="wrap_content"
+               android:textSize="@dimen/_11ssp"
+               android:layout_marginLeft="@dimen/_10sdp"
+               android:layout_marginRight="@dimen/_30sdp"
+               android:layout_height="wrap_content"
+               android:text="Please enter area measured in bellow fields sample wise you need to enter atleast 3 samples."
+               />
+
+           <ImageView
+               android:layout_alignParentRight="true"
+               android:layout_width="@dimen/_40sdp"
+               android:layout_height="@dimen/_50sdp"
+               android:layout_marginRight="@dimen/_10sdp"
+               android:alpha=".4"
+               android:src="@drawable/ic_assignment_turned_in_turqoise_18dp"
+               />
+       </RelativeLayout>
+       <LinearLayout
+           android:id="@+id/sample1_rel_lay1"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <android.support.v7.widget.CardView
+               android:layout_margin="@dimen/_10sdp"
+               app:cardCornerRadius="@dimen/_5sdp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+
+               <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="*Sample 1"
+                       android:textSize="@dimen/_15ssp"
+                       android:padding="@dimen/_3sdp"/>
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/configuredArea_text_input1"
+                           android:layout_width="0dp"
+                           android:layout_weight="1"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/configuredArea_text_input_et1"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="Configured Area (in sq. feets)" />
+                       </android.support.design.widget.TextInputLayout>
+
+                   </LinearLayout>
+
+
+
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/plant_to_plant_text_input_lay1"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/plant_to_plant_et1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="P-P spacing (in inches)" />
+                       </android.support.design.widget.TextInputLayout>
+
+
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/row_to_row_text_input_lay1"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/row_to_row_et1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="R-R spacing (in inches)" />
+                       </android.support.design.widget.TextInputLayout>
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+
+                       <TextView
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:id="@+id/idealPopulationtvlabel1"
+                           android:padding="@dimen/_5sdp"
+                           android:layout_gravity="center"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:textSize="@dimen/_13ssp"
+                           android:layout_height="wrap_content"
+                           android:text="Ideal population"/>
+
+                       <TextView
+                           android:textSize="@dimen/_13ssp"
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:id="@+id/idealPopulationtv1"
+                           android:padding="@dimen/_5sdp"
+                           android:layout_gravity="center"
+                           android:gravity="center"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content"
+                           android:text="0"/>
+
+                   </LinearLayout>
+
+
+
+                   <android.support.design.widget.TextInputLayout
+                       android:id="@+id/actual_population_text_input_lay1"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <EditText
+                           android:inputType="number"
+                           android:id="@+id/actual_population_et1"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_centerHorizontal="true"
+                           android:layout_centerVertical="true"
+                           android:ems="10"
+                           android:hint="Actual Population" />
+                   </android.support.design.widget.TextInputLayout>
+                   <LinearLayout
+                       android:layout_marginTop="@dimen/_5sdp"
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+
+                       <LinearLayout
+                           android:orientation="vertical"
+                           android:layout_weight=".4"
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content">
+
+                           <TextView
+                               android:layout_gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:padding="@dimen/_5sdp"
+                               android:text="Germination"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content" />
+
+                           <LinearLayout
+                               android:layout_weight="1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content">
+
+                               <View
+                                   android:layout_width="0dp"
+                                   android:layout_height="2dp"
+                                   android:layout_weight=".3"/>
+                               <TextView
+                                   android:layout_weight=".5"
+                                   android:gravity="center"
+                                   android:layout_gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:id="@+id/germination_text_input_tv1"
+                                   android:layout_width="0dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:text="0" />
+
+                               <TextView
+                                   android:layout_width="0dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_weight=".2"
+                                   android:text="%"/>
+
+                           </LinearLayout>
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:orientation="vertical"
+                           android:layout_weight=".6"
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content">
+
+                           <TextView
+                               android:layout_gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:padding="@dimen/_5sdp"
+                               android:text="Total Farm Population"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content" />
+                           <TextView
+                               android:layout_gravity="center"
+                               android:gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:id="@+id/full_population_tv1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:text="0" />
+                       </LinearLayout>
+
+
+
+
+
+
+
+                   </LinearLayout>
+
+
+               </LinearLayout>
+
+
+           </android.support.v7.widget.CardView>
+       </LinearLayout>
+       <LinearLayout
+           android:id="@+id/sample1_rel_lay2"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <android.support.v7.widget.CardView
+               android:layout_margin="@dimen/_10sdp"
+               app:cardCornerRadius="@dimen/_5sdp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+
+               <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="*Sample 2"
+                       android:textSize="@dimen/_15ssp"
+                       android:padding="@dimen/_3sdp"/>
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/configuredArea_text_input2"
+                           android:layout_width="0dp"
+                           android:layout_weight="1"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/configuredArea_text_input_et2"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="Configured Area (in sq. feets)" />
+                       </android.support.design.widget.TextInputLayout>
+
+                   </LinearLayout>
+
+
+
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/plant_to_plant_text_input_lay2"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/plant_to_plant_et2"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="P-P spacing (in inches)" />
+                       </android.support.design.widget.TextInputLayout>
+
+
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/row_to_row_text_input_lay2"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/row_to_row_et2"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="R-R spacing (in inches)" />
+                       </android.support.design.widget.TextInputLayout>
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+
+                       <TextView
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:id="@+id/idealPopulationtvlabel2"
+                           android:padding="@dimen/_5sdp"
+                           android:layout_gravity="center"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:textSize="@dimen/_13ssp"
+                           android:layout_height="wrap_content"
+                           android:text="Ideal population"/>
+
+                       <TextView
+                           android:textSize="@dimen/_13ssp"
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:id="@+id/idealPopulationtv2"
+                           android:padding="@dimen/_5sdp"
+                           android:layout_gravity="center"
+                           android:gravity="center"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content"
+                           android:text="0"/>
+
+                   </LinearLayout>
+
+
+
+                   <android.support.design.widget.TextInputLayout
+                       android:id="@+id/actual_population_text_input_lay2"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <EditText
+                           android:inputType="number"
+                           android:id="@+id/actual_population_et2"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_centerHorizontal="true"
+                           android:layout_centerVertical="true"
+                           android:ems="10"
+                           android:hint="Actual Population" />
+                   </android.support.design.widget.TextInputLayout>
+                   <LinearLayout
+                       android:layout_marginTop="@dimen/_5sdp"
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+
+                       <LinearLayout
+                           android:orientation="vertical"
+                           android:layout_weight=".4"
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content">
+
+                           <TextView
+                               android:layout_gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:padding="@dimen/_5sdp"
+                               android:text="Germination"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content" />
+
+                           <LinearLayout
+                               android:layout_weight="1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content">
+
+                               <View
+                                   android:layout_width="0dp"
+                                   android:layout_height="2dp"
+                                   android:layout_weight=".3"/>
+                               <TextView
+                                   android:layout_weight=".5"
+                                   android:gravity="center"
+                                   android:layout_gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:id="@+id/germination_text_input_tv2"
+                                   android:layout_width="0dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:text="0" />
+
+                               <TextView
+                                   android:layout_width="0dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_weight=".2"
+                                   android:text="%"/>
+
+                           </LinearLayout>
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:orientation="vertical"
+                           android:layout_weight=".6"
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content">
+
+                           <TextView
+                               android:layout_gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:padding="@dimen/_5sdp"
+                               android:text="Total Farm Population"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content" />
+                           <TextView
+                               android:layout_gravity="center"
+                               android:gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:id="@+id/full_population_tv2"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:text="0" />
+                       </LinearLayout>
+
+
+
+
+
+
+
+                   </LinearLayout>
+
+
+               </LinearLayout>
+
+
+           </android.support.v7.widget.CardView>
+       </LinearLayout>
+       <LinearLayout
+           android:id="@+id/sample1_rel_la3"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <android.support.v7.widget.CardView
+               android:layout_margin="@dimen/_10sdp"
+               app:cardCornerRadius="@dimen/_5sdp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+
+               <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="*Sample 3"
+                       android:textSize="@dimen/_15ssp"
+                       android:padding="@dimen/_3sdp"/>
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/configuredArea_text_input3"
+                           android:layout_width="0dp"
+                           android:layout_weight="1"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/configuredArea_text_input_et3"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="Configured Area (in sq. feets)" />
+                       </android.support.design.widget.TextInputLayout>
+
+                   </LinearLayout>
+
+
+
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/plant_to_plant_text_input_lay3"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/plant_to_plant_et3"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="P-P spacing (in inches)" />
+                       </android.support.design.widget.TextInputLayout>
+
+
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/row_to_row_text_input_lay3"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="numberDecimal"
+                               android:id="@+id/row_to_row_et3"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="R-R spacing (in inches)" />
+                       </android.support.design.widget.TextInputLayout>
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+
+                       <TextView
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:id="@+id/idealPopulationtvlabel3"
+                           android:padding="@dimen/_5sdp"
+                           android:layout_gravity="center"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:textSize="@dimen/_13ssp"
+                           android:layout_height="wrap_content"
+                           android:text="Ideal population"/>
+
+                       <TextView
+                           android:textSize="@dimen/_13ssp"
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:id="@+id/idealPopulationtv3"
+                           android:padding="@dimen/_5sdp"
+                           android:layout_gravity="center"
+                           android:gravity="center"
+                           android:layout_width="0dp"
+                           android:layout_weight=".5"
+                           android:layout_height="wrap_content"
+                           android:text="0"/>
+
+                   </LinearLayout>
+
+
+
+                   <android.support.design.widget.TextInputLayout
+                       android:id="@+id/actual_population_text_input_lay3"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <EditText
+                           android:inputType="number"
+                           android:id="@+id/actual_population_et3"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_centerHorizontal="true"
+                           android:layout_centerVertical="true"
+                           android:ems="10"
+                           android:hint="Actual Population" />
+                   </android.support.design.widget.TextInputLayout>
+                   <LinearLayout
+                       android:layout_marginTop="@dimen/_5sdp"
+                       android:weightSum="1"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+
+                       <LinearLayout
+                           android:orientation="vertical"
+                           android:layout_weight=".4"
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content">
+
+                           <TextView
+                               android:layout_gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:padding="@dimen/_5sdp"
+                               android:text="Germination"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content" />
+
+                           <LinearLayout
+                               android:layout_weight="1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content">
+
+                               <View
+                                   android:layout_width="0dp"
+                                   android:layout_height="2dp"
+                                   android:layout_weight=".3"/>
+                               <TextView
+                                   android:layout_weight=".5"
+                                   android:gravity="center"
+                                   android:layout_gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:id="@+id/germination_text_input_tv3"
+                                   android:layout_width="0dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:text="0" />
+
+                               <TextView
+                                   android:layout_width="0dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_weight=".2"
+                                   android:text="%"/>
+
+                           </LinearLayout>
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:orientation="vertical"
+                           android:layout_weight=".6"
+                           android:layout_width="0dp"
+                           android:layout_height="wrap_content">
+
+                           <TextView
+                               android:layout_gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:padding="@dimen/_5sdp"
+                               android:text="Total Farm Population"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content" />
+                           <TextView
+                               android:layout_gravity="center"
+                               android:gravity="center"
+                               android:textSize="@dimen/_13ssp"
+                               android:id="@+id/full_population_tv3"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:text="0" />
+                       </LinearLayout>
+
+
+
+
+
+
+
+                   </LinearLayout>
+
+
+               </LinearLayout>
+
+
+           </android.support.v7.widget.CardView>
+       </LinearLayout>
+
+<ImageView
+    android:id="@+id/add_more_img_butt"
+    android:layout_margin="@dimen/_10sdp"
+    android:padding="@dimen/_5sdp"
+    android:layout_gravity="right"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_add_circle_outline_dark_grey_black_24dp"/>
+
+       <LinearLayout
+           android:visibility="gone"
+           android:orientation="vertical"
+           android:id="@+id/hidden_linear_germi"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
+               android:id="@+id/sample1_rel_la4"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <android.support.v7.widget.CardView
+                   android:layout_margin="@dimen/_10sdp"
+                   app:cardCornerRadius="@dimen/_5sdp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+
+                   <LinearLayout
+                       android:orientation="vertical"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Sample 4"
+                           android:textSize="@dimen/_15ssp"
+                           android:padding="@dimen/_3sdp"/>
+                       <LinearLayout
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+                           <android.support.design.widget.TextInputLayout
+                               android:id="@+id/configuredArea_text_input4"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content">
+                               <EditText
+                                   android:inputType="numberDecimal"
+                                   android:id="@+id/configuredArea_text_input_et4"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:hint="Configured Area (in sq. feets)" />
+                           </android.support.design.widget.TextInputLayout>
+
+                       </LinearLayout>
+
+
+
+                       <LinearLayout
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+                           <android.support.design.widget.TextInputLayout
+                               android:id="@+id/plant_to_plant_text_input_lay4"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:layout_height="wrap_content">
+                               <EditText
+                                   android:inputType="numberDecimal"
+                                   android:id="@+id/plant_to_plant_et4"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:hint="P-P spacing (in inches)" />
+                           </android.support.design.widget.TextInputLayout>
+
+
+                           <android.support.design.widget.TextInputLayout
+                               android:id="@+id/row_to_row_text_input_lay4"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:layout_height="wrap_content">
+                               <EditText
+                                   android:inputType="numberDecimal"
+                                   android:id="@+id/row_to_row_et4"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:hint="R-R spacing (in inches)" />
+                           </android.support.design.widget.TextInputLayout>
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+
+
+                           <TextView
+                               android:layout_marginTop="@dimen/_5sdp"
+                               android:id="@+id/idealPopulationtvlabel4"
+                               android:padding="@dimen/_5sdp"
+                               android:layout_gravity="center"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:textSize="@dimen/_13ssp"
+                               android:layout_height="wrap_content"
+                               android:text="Ideal population"/>
+
+                           <TextView
+                               android:textSize="@dimen/_13ssp"
+                               android:layout_marginTop="@dimen/_5sdp"
+                               android:id="@+id/idealPopulationtv4"
+                               android:padding="@dimen/_5sdp"
+                               android:layout_gravity="center"
+                               android:gravity="center"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:layout_height="wrap_content"
+                               android:text="0"/>
+
+                       </LinearLayout>
+
+
+
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/actual_population_text_input_lay4"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="number"
+                               android:id="@+id/actual_population_et4"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="Actual Population" />
+                       </android.support.design.widget.TextInputLayout>
+                       <LinearLayout
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+
+
+                           <LinearLayout
+                               android:orientation="vertical"
+                               android:layout_weight=".4"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <TextView
+                                   android:layout_gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:padding="@dimen/_5sdp"
+                                   android:text="Germination"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+
+                               <LinearLayout
+                                   android:layout_weight="1"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content">
+
+                                   <View
+                                       android:layout_width="0dp"
+                                       android:layout_height="2dp"
+                                       android:layout_weight=".3"/>
+                                   <TextView
+                                       android:layout_weight=".5"
+                                       android:gravity="center"
+                                       android:layout_gravity="center"
+                                       android:textSize="@dimen/_13ssp"
+                                       android:id="@+id/germination_text_input_tv4"
+                                       android:layout_width="0dp"
+                                       android:layout_height="wrap_content"
+                                       android:layout_centerHorizontal="true"
+                                       android:layout_centerVertical="true"
+                                       android:ems="10"
+                                       android:text="0" />
+
+                                   <TextView
+                                       android:layout_width="0dp"
+                                       android:layout_height="wrap_content"
+                                       android:layout_weight=".2"
+                                       android:text="%"/>
+
+                               </LinearLayout>
+                           </LinearLayout>
+
+                           <LinearLayout
+                               android:orientation="vertical"
+                               android:layout_weight=".6"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <TextView
+                                   android:layout_gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:padding="@dimen/_5sdp"
+                                   android:text="Total Farm Population"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+                               <TextView
+                                   android:layout_gravity="center"
+                                   android:gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:id="@+id/full_population_tv4"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:text="0" />
+                           </LinearLayout>
+
+
+
+
+
+
+
+                       </LinearLayout>
+
+
+                   </LinearLayout>
+
+
+               </android.support.v7.widget.CardView>
+           </LinearLayout>
+           <LinearLayout
+               android:id="@+id/sample1_rel_lay5"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <android.support.v7.widget.CardView
+                   android:layout_margin="@dimen/_10sdp"
+                   app:cardCornerRadius="@dimen/_5sdp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+
+                   <LinearLayout
+                       android:orientation="vertical"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Sample 5"
+                           android:textSize="@dimen/_15ssp"
+                           android:padding="@dimen/_3sdp"/>
+                       <LinearLayout
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+                           <android.support.design.widget.TextInputLayout
+                               android:id="@+id/configuredArea_text_input5"
+                               android:layout_width="0dp"
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content">
+                               <EditText
+                                   android:inputType="numberDecimal"
+                                   android:id="@+id/configuredArea_text_input_et5"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:hint="Configured Area (in sq. feets)" />
+                           </android.support.design.widget.TextInputLayout>
+
+                       </LinearLayout>
+
+
+
+                       <LinearLayout
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+                           <android.support.design.widget.TextInputLayout
+                               android:id="@+id/plant_to_plant_text_input_lay5"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:layout_height="wrap_content">
+                               <EditText
+                                   android:inputType="numberDecimal"
+                                   android:id="@+id/plant_to_plant_et5"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:hint="P-P spacing (in inches)" />
+                           </android.support.design.widget.TextInputLayout>
+
+
+                           <android.support.design.widget.TextInputLayout
+                               android:id="@+id/row_to_row_text_input_lay5"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:layout_height="wrap_content">
+                               <EditText
+                                   android:inputType="numberDecimal"
+                                   android:id="@+id/row_to_row_et5"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:hint="R-R spacing (in inches)" />
+                           </android.support.design.widget.TextInputLayout>
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+
+
+                           <TextView
+                               android:layout_marginTop="@dimen/_5sdp"
+                               android:id="@+id/idealPopulationtvlabel5"
+                               android:padding="@dimen/_5sdp"
+                               android:layout_gravity="center"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:textSize="@dimen/_13ssp"
+                               android:layout_height="wrap_content"
+                               android:text="Ideal population"/>
+
+                           <TextView
+                               android:textSize="@dimen/_13ssp"
+                               android:layout_marginTop="@dimen/_5sdp"
+                               android:id="@+id/idealPopulationtv5"
+                               android:padding="@dimen/_5sdp"
+                               android:layout_gravity="center"
+                               android:gravity="center"
+                               android:layout_width="0dp"
+                               android:layout_weight=".5"
+                               android:layout_height="wrap_content"
+                               android:text="0"/>
+
+                       </LinearLayout>
+
+
+
+                       <android.support.design.widget.TextInputLayout
+                           android:id="@+id/actual_population_text_input_lay5"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+                           <EditText
+                               android:inputType="number"
+                               android:id="@+id/actual_population_et5"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_centerHorizontal="true"
+                               android:layout_centerVertical="true"
+                               android:ems="10"
+                               android:hint="Actual Population" />
+                       </android.support.design.widget.TextInputLayout>
+                       <LinearLayout
+                           android:layout_marginTop="@dimen/_5sdp"
+                           android:weightSum="1"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+
+
+                           <LinearLayout
+                               android:orientation="vertical"
+                               android:layout_weight=".4"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <TextView
+                                   android:layout_gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:padding="@dimen/_5sdp"
+                                   android:text="Germination"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+
+                               <LinearLayout
+                                   android:layout_weight="1"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content">
+
+                                   <View
+                                       android:layout_width="0dp"
+                                       android:layout_height="2dp"
+                                       android:layout_weight=".3"/>
+                                   <TextView
+                                       android:layout_weight=".5"
+                                       android:gravity="center"
+                                       android:layout_gravity="center"
+                                       android:textSize="@dimen/_13ssp"
+                                       android:id="@+id/germination_text_input_tv5"
+                                       android:layout_width="0dp"
+                                       android:layout_height="wrap_content"
+                                       android:layout_centerHorizontal="true"
+                                       android:layout_centerVertical="true"
+                                       android:ems="10"
+                                       android:text="0" />
+
+                                   <TextView
+                                       android:layout_width="0dp"
+                                       android:layout_height="wrap_content"
+                                       android:layout_weight=".2"
+                                       android:text="%"/>
+
+                               </LinearLayout>
+                           </LinearLayout>
+
+                           <LinearLayout
+                               android:orientation="vertical"
+                               android:layout_weight=".6"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <TextView
+                                   android:layout_gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:padding="@dimen/_5sdp"
+                                   android:text="Total Farm Population"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+                               <TextView
+                                   android:layout_gravity="center"
+                                   android:gravity="center"
+                                   android:textSize="@dimen/_13ssp"
+                                   android:id="@+id/full_population_tv5"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerHorizontal="true"
+                                   android:layout_centerVertical="true"
+                                   android:ems="10"
+                                   android:text="0" />
+                           </LinearLayout>
+
+
+
+
+
+
+
+                       </LinearLayout>
+
+
+                   </LinearLayout>
+
+
+               </android.support.v7.widget.CardView>
+           </LinearLayout>
+       </LinearLayout>
+
+
+
+       <RelativeLayout
+           android:padding="@dimen/_10sdp"
+           android:id="@+id/rel_germination_all_final"
+           android:layout_width="wrap_content"
+           android:background="@color/li8_new_theme_back"
+           android:layout_height="wrap_content">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+               <LinearLayout
+                   android:padding="@dimen/_5sdp"
+                   android:weightSum="1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:layout_width="0dp"
+                       android:text="Average P-P spacing :"
+                       android:layout_weight=".6"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+
+                   <TextView
+                       android:id="@+id/avg_pp_spacing_tv"
+                       android:layout_width="0dp"
+                       android:text="0"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       android:layout_weight=".4"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+               </LinearLayout>
+               <LinearLayout
+                   android:padding="@dimen/_5sdp"
+                   android:weightSum="1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:layout_width="0dp"
+                       android:text="Average R-R spacing :"
+                       android:layout_weight=".6"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+
+                   <TextView
+                       android:id="@+id/avg_rr_spacing_tv"
+                       android:layout_width="0dp"
+                       android:text="0"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       android:layout_weight=".4"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+               </LinearLayout>
+               <LinearLayout
+                   android:padding="@dimen/_5sdp"
+                   android:weightSum="1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:layout_width="0dp"
+                       android:text="Average Germination :"
+                       android:layout_weight=".6"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+
+                   <TextView
+                       android:id="@+id/avg_germination_tv"
+                       android:layout_width="0dp"
+                       android:text="0"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       android:layout_weight=".4"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+               </LinearLayout>
+               <LinearLayout
+                   android:padding="@dimen/_5sdp"
+                   android:weightSum="1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:layout_width="0dp"
+                       android:text="Average farm population :"
+                       android:layout_weight=".6"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+
+                   <TextView
+                       android:id="@+id/avg_farm_popu_tv"
+                       android:layout_width="0dp"
+                       android:text="0"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       android:layout_weight=".4"
+                       android:textColor="@color/black"
+                       android:layout_height="wrap_content" />
+               </LinearLayout>
+
+
+           </LinearLayout>
+
+       </RelativeLayout>
+
+       <TextView
+           android:background="@drawable/gradient_button"
+           android:layout_marginTop="@dimen/_30sdp"
+           android:layout_below="@id/prescribed_full_layout"
+           android:layout_centerHorizontal="true"
+           android:textColor="@color/light_text_color"
+           android:id="@+id/submit_germi_data"
+           android:layout_width="match_parent"
+           android:gravity="center"
+           android:layout_marginLeft="@dimen/_20sdp"
+           android:layout_marginRight="@dimen/_20sdp"
+           android:layout_marginBottom="@dimen/_30sdp"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/_15ssp"
+           android:padding="@dimen/_9sdp"
+           android:text="SUBMIT"/>
+   </LinearLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

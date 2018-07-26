@@ -66,7 +66,7 @@
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/light_text_color"
-                android:hint="Email"
+                android:hint="UserName"
                 android:inputType="textEmailAddress|textAutoComplete"
                 android:padding="@dimen/_10sdp"
                 android:drawablePadding="@dimen/_13sdp"

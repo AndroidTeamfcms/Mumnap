@@ -7,7 +7,7 @@ public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
     private static final String BASE_URL = "https://spade.farm/app/index.php/farmCalendar/";
-    private static final String NEW_BASE_URL="http://192.168.0.15/fcmsci/index.php/";
+    private static final String NEW_BASE_URL="http://192.168.0.21/fcmsci/index.php/";
     private static final String BASE_URL_SERVER_URL = "http://35.154.153.223/fcmsci/index.php/";
 
     public static Retrofit getRetrofitInstance() {

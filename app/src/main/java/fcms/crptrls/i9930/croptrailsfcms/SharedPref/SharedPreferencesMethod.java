@@ -15,8 +15,11 @@ public class SharedPreferencesMethod {
     public static final String SVCOMPID = "SVCOMPID";
     public static final String SVUSERID = "SVUSERID";
     public static final String SVCLUSTERID = "SVCLUSTERID";
-    public static final String SVFARMID = "SVCLUSTERID";
+    public static final String SVFARMID = "SVFARMID";
     public static final String UNITS = "UNITS";
+    public static final String USERNAME = "USERNAME";
+    public static final String PASSWORD = "PASSWORD";
+
 
 
 

@@ -65,6 +65,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.Farm_Farmer_Details.FarmDetailsUpdate.FarmDetailsUpdateActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.StatusMsgModel.StatusMsgModel;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
 import fcms.crptrls.i9930.croptrailsfcms.Map.VerifyArea.VerifyAreaModel.VerifySendData;
@@ -1029,8 +1030,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
                 VerifySendData verifySendData=new VerifySendData();
-                verifySendData.setComp_id("0");
-                verifySendData.setFarm_id("2");
+                verifySendData.setComp_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID));
+                verifySendData.setFarm_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVFARMID));
                 verifySendData.setArea(tvarea.getText().toString().trim());
                 verifySendData.setLat(lat);
                 verifySendData.setLng(lng);

@@ -35,6 +35,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:textColor="@color/yel_gre_mix_dark"
                         android:id="@+id/farmer_single_tv"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"

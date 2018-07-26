@@ -3,7 +3,9 @@ package fcms.crptrls.i9930.croptrailsfcms.Login;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.Settings;
@@ -27,6 +30,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -59,6 +63,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -68,6 +73,7 @@ import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.LandingActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Login.model.LoginData;
 import fcms.crptrls.i9930.croptrailsfcms.Login.model.Post;
+import fcms.crptrls.i9930.croptrailsfcms.ServicesAndBroadCastRecivers.SampleBootReceiver;
 import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.R;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
@@ -590,8 +596,31 @@ public class LoginActivity extends AppCompatActivity implements android.location
                         progressBar.setVisibility(View.INVISIBLE);
                         if(post.getMsg().equals("Login Successfull")) {
                             LoginData loginData=post.getData();
-                            Toast.makeText(context, loginData.getUserId()+"", Toast.LENGTH_SHORT).show();
+
+                          /*  AlarmManager alarmManager = (AlarmManager)getSystemService(context.ALARM_SERVICE);
+                            Intent alarmIntent = new Intent(context, SampleBootReceiver.class);
+
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            alarmIntent.setData((Uri.parse("custom://"+System.currentTimeMillis())));
+                            //alarmManager.cancel(pendingIntent);
+                            Calendar alarmStartTime = Calendar.getInstance();
+                            Calendar now = Calendar.getInstance();
+                            Calendar current_time=Calendar.getInstance();
+                            alarmStartTime.set(Calendar.HOUR_OF_DAY, now.get(Calendar.HOUR_OF_DAY));
+                            alarmStartTime.set(Calendar.MINUTE, now.get(Calendar.MINUTE));
+                            alarmStartTime.set(Calendar.SECOND,now.get(Calendar.SECOND)+10);
+                            if (current_time.after(alarmStartTime)) {
+                                Log.d("Hey", "Added a day");
+                                alarmStartTime.add(Calendar.DATE, 1);
+                            }
+
+                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), 60*1000 ,pendingIntent);//AlarmManager.INTERVAL_DAY
+                            Log.d("Alarm", "Alarms set for everyday 8 am.");
+*/
+                            //Toast.makeText(context, loginData.getUserId()+"", Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(context,LandingActivity.class);
+                            SharedPreferencesMethod.setString(context,SharedPreferencesMethod.USERNAME,user_name);
+                            SharedPreferencesMethod.setString(context,SharedPreferencesMethod.PASSWORD,password);
                             SharedPreferencesMethod.setBoolean(context, SharedPreferencesMethod.SVLOGIN, true);
                             SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVCOMPID,loginData.getCompId().toString());
                             SharedPreferencesMethod.setString(context,SharedPreferencesMethod.SVUSERID,loginData.getUserId().toString());

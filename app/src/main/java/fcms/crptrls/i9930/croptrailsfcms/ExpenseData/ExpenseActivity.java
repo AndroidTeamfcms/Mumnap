@@ -23,7 +23,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,6 +46,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,6 +82,7 @@ public class ExpenseActivity extends AppCompatActivity {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
     ArrayList<String> encodedImageList;
+    Toolbar mActionBarToolbar;
     JSONObject jsonObject;
     String pictureImagePath = "";
     Context context;
@@ -100,6 +104,10 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
 
 
     @Override
@@ -116,6 +124,16 @@ public class ExpenseActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_expense);
         context=this;
+
+        TextView title = (TextView) findViewById(R.id.tittle);
+        title.setText("Daily Expenses");
+        mActionBarToolbar = (Toolbar) findViewById(R.id.confirm_order_toolbar_layout);
+        setSupportActionBar(mActionBarToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         img_expense_recycler=(ImageView) findViewById(R.id.img_expense_recycler);
         expenseDataRecyclerView=(RecyclerView)findViewById(R.id.expence_recyclerview);
         democheck=(Button)findViewById(R.id.demoCheck);
@@ -133,6 +151,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
         progressBar.setVisibility(View.VISIBLE);
+        result=new ArrayList<>();
         fetchData();
 
         final DatePickerDialog.OnDateSetListener datesowing = new DatePickerDialog.OnDateSetListener() {
@@ -190,10 +209,14 @@ public class ExpenseActivity extends AppCompatActivity {
 
     private void fetchData() {
 
+
+
+
+
         ExpApiInterface apiService = RetrofitClientInstance.getRetrofitInstance().create(ExpApiInterface.class);
         ExpenseSendData expenseSendData=new ExpenseSendData();
-        expenseSendData.setComp_id("1");
-        expenseSendData.setSv_id("1");
+        expenseSendData.setComp_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID));
+        expenseSendData.setSv_id(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVUSERID));
         Call<ExpenseData> expenseDataCall=apiService.getExpenseData(expenseSendData);
         expenseDataCall.enqueue(new Callback<ExpenseData>(){
 
@@ -227,6 +250,7 @@ public class ExpenseActivity extends AppCompatActivity {
                             linearLayoutManager = new LinearLayoutManager(context);
                             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                             expenseDataRecyclerView.setLayoutManager(linearLayoutManager);
+                            scrollMyListViewToBottom();
                         }else{
                             Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
                         }
@@ -234,7 +258,6 @@ public class ExpenseActivity extends AppCompatActivity {
                 }catch (Exception e){
                     progressBar.setVisibility(View.INVISIBLE);
                     e.printStackTrace();
-                    result=new ArrayList<>();
                     expenseAdapter = new ExpenseAdapter(result, context);
                     expenseDataRecyclerView.setHasFixedSize(true);
                     expenseDataRecyclerView.setAdapter(expenseAdapter);
@@ -249,6 +272,8 @@ public class ExpenseActivity extends AppCompatActivity {
         });
 
     }
+
+
 
 
     public void register(String comp_id, String sv_id, String amount,String exp_date, String img_path,String comment, String category_id){
@@ -303,14 +328,17 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
             ResponseBody responseBody=bodyResponse.body();
+
+
+            if(bodyResponse.isSuccessful()) {
            /* Log.e("TAG_REG_RESPONSE",bodyResponse.body().string());
             Log.e("TAG_REG_CODE",bodyResponse.code()+"");
             Log.e("TAG_REG_MESSAGE",bodyResponse.message());*/
 
-            JSONObject jsonObject=new JSONObject(bodyResponse.body().string());
-            String data=jsonObject.getString("img_url");
+                JSONObject jsonObject = new JSONObject(bodyResponse.body().string());
+                String data = jsonObject.getString("img_url");
 
-            Log.e("TAG_NEW_RESPONSE",data );
+                Log.e("TAG_NEW_RESPONSE", data);
 
 
           /*  for (int i = 0; i < jsonArray.length(); i++) {
@@ -329,33 +357,38 @@ public class ExpenseActivity extends AppCompatActivity {
 
             /*
              ExpenseRegistorResponseData expenseRegistorResponseData= (ExpenseRegistorResponseData) bodyResponse.body();*/
-            datum=new Datum();
-            datum.setAmount(str_et_amount);
-            datum.setCategoryId("0");
-            datum.setComment(str_et_narration);
-            datum.setCompId("0");
-            datum.setDoa("12/1234/12");
-            datum.setExpDate(str_et_date);
-            datum.setImgUrl(data);
-            datum.setIsActive("Y");
-            datum.setPersonId("1");
-            datum.setSvDailyExpId("1");
-            result.add(datum);
+                datum = new Datum();
+                datum.setAmount(str_et_amount);
+                datum.setCategoryId("0");
+                datum.setComment(str_et_narration);
+                datum.setCompId("0");
+                datum.setDoa("12/1234/12");
+                datum.setExpDate(str_et_date);
+                datum.setImgUrl(data);
+                datum.setIsActive("Y");
+                datum.setPersonId("1");
+                datum.setSvDailyExpId("1");
+                result.add(datum);
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    scrollMyListViewToBottom();
-                    //expenseAdapter.notifyItemInserted(result.size() - 1);
-                    expenseAdapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.INVISIBLE);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //expenseAdapter.notifyItemInserted(result.size() - 1);
+                        expenseAdapter.notifyDataSetChanged();
+                        scrollMyListViewToBottom();
+                        progressBar.setVisibility(View.INVISIBLE);
 
                     /*etcomment.setText("");
                     progressDialog.dismiss();*/
-                    // Stuff that updates the UI
+                        // Stuff that updates the UI
 
-                }
-            });
+                    }
+                });
+
+
+            }else{
+                Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+            }
 
             /*StaticValues.code  = bodyResponse.code();
             StaticValues.mensaje  = bodyResponse.message();
@@ -369,7 +402,19 @@ public class ExpenseActivity extends AppCompatActivity {
         }
         catch (Exception e){
             e.printStackTrace();
-            progressBar.setVisibility(View.INVISIBLE);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //expenseAdapter.notifyItemInserted(result.size() - 1);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(context, "Server error please try again later...", Toast.LENGTH_SHORT).show();
+
+                    /*etcomment.setText("");
+                    progressDialog.dismiss();*/
+                    // Stuff that updates the UI
+
+                }
+            });
 
         }
     }
@@ -589,8 +634,20 @@ public class ExpenseActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
+            String submit_format = "yyyy-MM-dd"; //In which you need put here
+            SimpleDateFormat submit_sdf = new SimpleDateFormat(submit_format, Locale.US);
+            Date exp_date_in_date=null;
 
-                 register("1", "1", str_et_amount, str_et_date, pictureImagePath, str_et_narration, "0");
+
+            try {
+                exp_date_in_date=new SimpleDateFormat("dd/MM/yyyy").parse(et_exp_date.getText().toString().trim());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String str_exp_date_final=submit_sdf.format(exp_date_in_date);
+
+
+            register(SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVCOMPID), SharedPreferencesMethod.getString(context,SharedPreferencesMethod.SVUSERID), str_et_amount, str_exp_date_final, pictureImagePath, str_et_narration, "0");
 
         //public void register(String comp_id, String sv_id, String amount,String exp_date, String img_path,String comment, String category_id){
 
@@ -620,10 +677,15 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
     private void scrollMyListViewToBottom() {
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        //linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-        expenseDataRecyclerView.setLayoutManager(linearLayoutManager);
+        if(result!=null) {
+            if (result.size() > 0) {
+                expenseDataRecyclerView.scrollToPosition(result.size() - 1);
+                final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                //linearLayoutManager.setReverseLayout(true);
+                linearLayoutManager.setStackFromEnd(true);
+            }
+        }
+        //expenseDataRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
 
@@ -631,5 +693,7 @@ public class ExpenseActivity extends AppCompatActivity {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         et_exp_date.setText(sdf.format(expense_date.getTime()));
+        et_exp_date.setError(null);
+
     }
 }

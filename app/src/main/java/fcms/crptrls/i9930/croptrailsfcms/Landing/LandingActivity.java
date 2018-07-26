@@ -2,6 +2,8 @@ package fcms.crptrls.i9930.croptrailsfcms.Landing;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,13 +36,19 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import fcms.crptrls.i9930.croptrailsfcms.DataHandler.DataHandler;
+import fcms.crptrls.i9930.croptrailsfcms.DatsbaseHandler.DatabaseHandler;
+import fcms.crptrls.i9930.croptrailsfcms.DatsbaseHandler.SaveGpsGetterSetter;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpApiInterface;
 import fcms.crptrls.i9930.croptrailsfcms.ExpenseData.ExpenseActivity;
+import fcms.crptrls.i9930.croptrailsfcms.GerminationAndSpacing.GerminationSpacingActivity;
+import fcms.crptrls.i9930.croptrailsfcms.GerminationAndSpacing.GerminationSpacingActivity_ViewBinding;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.FarmFragment;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.FarmerFragment;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Fragments.ProfileFragment;
@@ -50,11 +58,15 @@ import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitData;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitDataAndStatus;
 import fcms.crptrls.i9930.croptrailsfcms.Landing.Units.Model.UnitSendData;
 import fcms.crptrls.i9930.croptrailsfcms.Login.LoginActivity;
+import fcms.crptrls.i9930.croptrailsfcms.Map.CheckArea.CheckAreaMapActivity;
 import fcms.crptrls.i9930.croptrailsfcms.Map.ShowArea.ShowAreaOnMapActivity;
 import fcms.crptrls.i9930.croptrailsfcms.R;
+import fcms.crptrls.i9930.croptrailsfcms.ServicesAndBroadCastRecivers.SampleBootReceiver;
+import fcms.crptrls.i9930.croptrailsfcms.ServicesAndBroadCastRecivers.UploadGpsLogToServer;
 import fcms.crptrls.i9930.croptrailsfcms.SharedPref.SharedPreferencesMethod;
 import fcms.crptrls.i9930.croptrailsfcms.Map.VerifyArea.MapsActivity;
 import fcms.crptrls.i9930.croptrailsfcms.TestFolder.DynamicButtonAdd_demo.TestForAddViewActivity;
+import fcms.crptrls.i9930.croptrailsfcms.TestFolder.TestLocationcheckActivity;
 import fcms.crptrls.i9930.croptrailsfcms.TestRetrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,8 +83,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     ProgressBar progressBar;
     RelativeLayout rel_landing_id;
 
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
 
@@ -127,6 +138,12 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         FetchUnitAsync fetchUnitAsync=new FetchUnitAsync();
         fetchUnitAsync.execute();
+
+
+
+
+
+
 
 
 
@@ -245,7 +262,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         }*/  if (id == R.id.nav_slideshow) {
 
-            Intent intent = new Intent(context, MapsActivity.class);
+            Intent intent = new Intent(context, CheckAreaMapActivity.class);
             ActivityOptions options = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 options = ActivityOptions.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
@@ -266,7 +283,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             } else {
                 startActivity(intent);
             }
-        }*/ else if (id == R.id.nav_expense) {
+        }*/  if (id == R.id.nav_expense) {
             Intent intent = new Intent(context, ExpenseActivity.class);
             ActivityOptions options = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -277,7 +294,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             } else {
                 startActivity(intent);
             }
-        } else if (id == R.id.nav_share) {
+        }/* else if (id == R.id.nav_share) {
             Intent intent = new Intent(context, TestForAddViewActivity.class);
             ActivityOptions options = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -289,10 +306,10 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
             }
         }
+*/
 
-
-        else if (id == R.id.nav_send) {
-            Intent intent = new Intent(context, ShowAreaOnMapActivity
+       /* else if (id == R.id.nav_send) {
+            Intent intent = new Intent(context, GerminationSpacingActivity
                     .class);
             ActivityOptions options = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -303,7 +320,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             } else {
                 startActivity(intent);
             }
-        } else if (id == R.id.nav_logout) {
+        }*/
+
+
+
+        else if (id == R.id.nav_logout) {
             new AlertDialog.Builder(this)
                     .setMessage("Are you sure you want to exit ?")
                     .setCancelable(false)
@@ -388,9 +409,9 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             unitDataAndStatusCall.enqueue(new Callback<UnitDataAndStatus>() {
                 @Override
                 public void onResponse(Call<UnitDataAndStatus> call, Response<UnitDataAndStatus> response) {
-                    Snackbar snackbar = Snackbar
+                   /* Snackbar snackbar = Snackbar
                             .make(rel_landing_id, "Welcome to AndroidHive", Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                    snackbar.show();*/
                 if(response!=null){
                     UnitDataAndStatus unitDataAndStatus=response.body();
 
